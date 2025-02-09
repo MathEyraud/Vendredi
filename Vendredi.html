@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendredi</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles/variables.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/table.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/countdown.css">
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>Qui doit ramener le p'tit déj vendredi ?</h1>
+        <p class="highlight"><strong><span id="nomResponsable"></span></strong></p>
+
+        <h2>📌 Planning des prochains passages :</h2>
+
+        <div style="gap: 16px;">
+
+            <!-- Choix de l'équipe -->
+            <div class="dropdown">
+                <button class="dropbtn" id="selectedTeam">Équipe OIFP</button>
+                <div class="dropdown-content" id="teamList">
+                    <a href="#" data-value="equipe_oifp.js">Équipe OIFP</a>
+                    <a href="#" data-value="equipe_marketing.js">Équipe marketing</a>
+                    <a href="#" data-value="equipe_pirate.js">Équipe Luffy</a>
+                </div>
+            </div>
+
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Personne</th>
+                    <th>Jours restants</th>
+                    <!-- <th>Allergènes</th> -->
+                </tr>
+            </thead>
+            <tbody id="listeProchainesDates">
+                <!-- Les lignes seront ajoutées ici par le script -->
+            </tbody>
+        </table>
+
+        <div id="allergenes"></div>
+
+        <!-- Toggle Dark Mode -->
+        <label class="switch" >
+            <input type="checkbox" id="toggleDarkMode">
+            <span class="slider round"></span>
+        </label>
+        
+    </div>
+
+    <script src="./data/equipes/equipe_oifp.js" defer></script>
+    <script src="./data/equipes/equipe_marketing.js" defer></script>
+    <script src="./data/equipes/equipe_pirate.js" defer></script>
+
+    <script src="./js/config.js" defer></script>
+    <script src="./js/utils.js" defer></script>
+    <script src="./js/equipeManager.js" defer></script>
+    <script src="./js/uiManager.js" defer></script>
+    <script src="./js/darkMode.js" defer></script>
+    <script src="./js/countdown.js" defer></script>
+    <script src="./js/main.js" defer></script>
+
+</body>
+</html>

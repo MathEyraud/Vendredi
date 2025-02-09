@@ -1,0 +1,47 @@
+/* Styles de base pour le corps de la page */
+body {
+    font-family: 'Poppins', sans-serif;  /* Police principale */
+    text-align: center;                  /* Centrage du contenu */
+    background-color: var(--background-light);
+    margin: 20px;
+}
+
+/* Application du mode sombre sur le body */
+.dark-mode {
+    background: var(--background-dark);
+}
+
+/* Conteneur principal de l'application */
+.container {
+    max-width: 600px;                     /* Largeur maximale pour la lisibilité */
+    margin: auto;                         /* Centrage horizontal */
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-base);
+}
+
+/* Fix pour les problèmes de flottement dans le conteneur */
+.container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style des titres principaux */
+h1 {
+    color: var(--primary-color-light);
+    font-weight: bold;
+    font-size: var(--text-3xl);
+}
+
+/* Adaptation du titre en mode sombre */
+.dark-mode h1 {
+    color: var(--primary-color-dark);
+}
+
+/* Style des sous-titres */
+h2 {
+    color: var(--text-dark);
+    margin-top: 20px;
+}

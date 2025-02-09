@@ -1,0 +1,138 @@
+/* ===== HIGHLIGHT COMPONENT ===== */
+.highlight {
+    background: var(--primary-color-light);
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--text-3xl);
+    font-weight: bold;
+    color: var(--text-light);
+    box-shadow: var(--box-shadow-base);
+    animation: pulse 1.5s infinite;     /* Animation continue de pulsation */
+}
+
+.dark-mode .highlight {
+    background: var(--background-dark-gray);
+}
+
+/* Animation de pulsation pour le highlight */
+@keyframes pulse {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1); }
+    100% { transform: scale(0.95); }
+}
+
+/* ===== DARK MODE SWITCH ===== */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+
+/* Cache la checkbox native */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Style du slider du switch */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--background-light-gray);
+    transition: .4s;
+    border-radius: var(--border-radius-lg);
+}
+
+/* Bouton du slider */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--background-light);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+/* États du switch */
+input:checked + .slider {
+    background-color: var(--background-dark);
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* ===== DROPDOWN COMPONENT ===== */
+.dropbtn {
+    border: none;
+    padding: 10px 20px;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    width: 180px;
+    text-align: center;
+    transition: .4s;
+    background-color: var(--primary-color-light);
+    color: var(--text-light);
+}
+
+.dark-mode .dropbtn {
+    background-color: var(--background-dark);
+}
+
+/* Conteneur du dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Menu déroulant */
+.dropdown-content {
+    display: none;                 /* Caché par défaut */
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: var(--box-shadow-base);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Liens dans le dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    transition: .3s;
+}
+
+/* Effet au survol des liens */
+.dropdown-content a:hover {
+    background-color: var(--hover-color);
+}
+
+/* Affichage du menu au survol */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Flèche du dropdown */
+.dropbtn::after {
+    content: '▼';
+    font-size: var(--text-xs);
+    margin-left: 8px;
+}

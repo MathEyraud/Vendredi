@@ -1,0 +1,58 @@
+/* Style de base du tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;     /* Fusion des bordures de cellules */
+    margin-top: 15px;
+}
+
+/* Adaptation du tableau en mode sombre */
+.dark-mode table {
+    background-color: var(--background-dark-gray);
+    color: var(--text-light);
+}
+
+/* Style des cellules du tableau */
+th, td {
+    border: 1px solid #ddd;       /* Bordure légère */
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style des en-têtes de colonnes */
+th {
+    background-color: var(--primary-color-light);
+    color: var(--text-light);
+}
+
+/* En-têtes en mode sombre */
+.dark-mode th {
+    background-color: var(--background-dark);
+    color: white;
+}
+
+/* Cellules en mode sombre */
+.dark-mode td {
+    color: var(--text-dark);
+}
+
+/* Alternance des couleurs de lignes */
+tbody tr:nth-child(even) {
+    background-color: var(--background-light);
+}
+
+/* Style spécial pour la colonne des jours restants */
+td:last-child {
+    font-weight: bold;
+    color: var(--text-red-light);    /* Rouge pour mettre en évidence */
+}
+
+/* Adaptation des jours restants en mode sombre */
+.dark-mode td:last-child {
+    color: var(--text-red-dark);
+}
+
+/* Effet de survol sur les lignes */
+tbody tr:hover {
+    background-color: var(--hover-color);
+    transition: 0.3s;              /* Animation douce au survol */
+}

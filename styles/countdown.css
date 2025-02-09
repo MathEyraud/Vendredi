@@ -1,0 +1,17 @@
+/* Styles du compte à rebours */
+.countdown-value {
+    font-size: var(--text-xs);
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+/* Animation subtile de pulsation pour les secondes */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.countdown-container:has(.countdown-value:not(:empty)) {
+    animation: pulse 1s infinite;
+}
