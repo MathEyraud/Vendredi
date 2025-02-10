@@ -17,7 +17,7 @@ function afficherEquipe(participants) {
     const responsables = getResponsables(participants, dateDepart);
     
     // Trouve le responsable de la semaine actuelle dans la liste
-    const responsableActuel = responsables.find(r => r.estAujourdhui);
+    const responsableActuel = responsables.find(r => r.estCetteSemaine);
 
     // SECTION 1 : Mise à jour de l'affichage du responsable actuel
     const nomResponsableElement = document.getElementById("nomResponsable");
@@ -66,8 +66,8 @@ function afficherEquipe(participants) {
         tbody.innerHTML += `
             <tr${estAujourdhui ? ' class="today"' : ''}>
                 <td>${date.toLocaleDateString()}</td>
-                <td>${personne.nom}${estAujourdhui ? ' (Aujourd\'hui)' : ''}</td>
-                <td>${joursRestants} jour${joursRestants > 1 ? 's' : ''}</td>
+                <td>${personne.nom}</td>
+                <td>${joursRestants === 0 ? 'Aujourd\'hui' : `${joursRestants} jour${joursRestants > 1 ? 's' : ''}`}</td>
             </tr>
         `;
     });

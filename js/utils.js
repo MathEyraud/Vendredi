@@ -32,8 +32,10 @@ function prochainVendredi(date) {
  * }
  */
 function estVendrediActuel(date) {
-    const aujourdHui = new Date();
+    const aujourdHui = aujourdhui();
     const vendrediCetteSemaine = prochainVendredi(aujourdHui);
+    
+    // On compare uniquement les dates, pas le fait qu'on soit vendredi ou non
     return date.getDate() === vendrediCetteSemaine.getDate() &&
            date.getMonth() === vendrediCetteSemaine.getMonth() &&
            date.getFullYear() === vendrediCetteSemaine.getFullYear();
@@ -84,7 +86,7 @@ function calculerSemainesEcoulees(dateDepart, aujourdHui) {
  * ], new Date('2024-01-01'));
  */
 function getResponsables(participants, dateDepart) {
-    const aujourdHui = new Date();
+    const aujourdHui = aujourdhui();
     const semainesEcoulees = calculerSemainesEcoulees(dateDepart, aujourdHui);
     const indexResponsable = semainesEcoulees % participants.length;
     
@@ -92,21 +94,39 @@ function getResponsables(participants, dateDepart) {
     const responsablesData = [];
     let prochaineDate = new Date(vendrediActuel);
 
-    // Générer la liste des prochains responsables
     for (let i = 0; i < participants.length; i++) {
         const currentIndex = (indexResponsable + i) % participants.length;
         const personne = participants[currentIndex];
         const diffJours = Math.ceil((prochaineDate - aujourdHui) / (1000 * 60 * 60 * 24));
 
+        // On utilise estVendrediActuel pour identifier le responsable de la semaine
+        const estCetteSemaine = estVendrediActuel(prochaineDate);
+        
+        // Mais on ajoute une vérification plus stricte pour l'affichage "Aujourd'hui"
+        const estAujourdhui = estCetteSemaine && aujourdHui.getDay() === 5;
+
         responsablesData.push({
             date: new Date(prochaineDate),
             personne: personne,
             joursRestants: diffJours,
-            estAujourdhui: estVendrediActuel(prochaineDate)
+            estAujourdhui: estAujourdhui,
+            estCetteSemaine: estCetteSemaine
         });
 
         prochaineDate.setDate(prochaineDate.getDate() + 7);
     }
 
     return responsablesData;
+}
+
+/**
+ * Obtient la date du jour
+ * 
+ * @returns {Date} La date du jour
+ * @example
+ * const aujourdHui = aujourdhui();
+ */
+function aujourdhui() {
+    const aujourdHui = new Date();
+    return aujourdHui;
 }
