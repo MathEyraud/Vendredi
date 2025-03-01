@@ -11,18 +11,15 @@
     <link rel="stylesheet" href="./styles/table.css">
     <link rel="stylesheet" href="./styles/components.css">
     <link rel="stylesheet" href="./styles/countdown.css">
-
 </head>
 <body>
     <div class="container">
-
         <h1>Qui doit ramener le p'tit déj vendredi ?</h1>
         <p class="highlight"><strong><span id="nomResponsable"></span></strong></p>
 
         <h2>📌 Planning des prochains passages :</h2>
 
         <div style="gap: 16px;">
-
             <!-- Choix de l'équipe -->
             <div class="dropdown">
                 <button class="dropbtn" id="selectedTeam">Équipe OIFP</button>
@@ -32,7 +29,6 @@
                     <a href="#" data-value="equipe_pirate.js">Équipe Luffy</a>
                 </div>
             </div>
-
         </div>
 
         <table>
@@ -41,7 +37,6 @@
                     <th>Date</th>
                     <th>Personne</th>
                     <th>Jours restants</th>
-                    <!-- <th>Allergènes</th> -->
                 </tr>
             </thead>
             <tbody id="listeProchainesDates">
@@ -52,24 +47,40 @@
         <div id="allergenes"></div>
 
         <!-- Toggle Dark Mode -->
-        <label class="switch" >
+        <label class="switch">
             <input type="checkbox" id="toggleDarkMode">
             <span class="slider round"></span>
         </label>
-        
     </div>
 
-    <script src="./data/equipes/equipe_oifp.js" defer></script>
-    <script src="./data/equipes/equipe_marketing.js" defer></script>
-    <script src="./data/equipes/equipe_pirate.js" defer></script>
+    <!-- Fichiers des équipes -->
+    <script src="./data/equipes/equipe_oifp.js"></script>
+    <script src="./data/equipes/equipe_marketing.js"></script>
+    <script src="./data/equipes/equipe_pirate.js"></script>
 
-    <script src="./js/config.js" defer></script>
-    <script src="./js/utils.js" defer></script>
-    <script src="./js/equipeManager.js" defer></script>
-    <script src="./js/uiManager.js" defer></script>
-    <script src="./js/darkMode.js" defer></script>
-    <script src="./js/countdown.js" defer></script>
-    <script src="./js/main.js" defer></script>
-
+    <!-- Configuration -->
+    <script src="./js/config.js"></script>
+    
+    <!-- Utilitaires -->
+    <script src="./js/utils/DateUtils.js"></script>
+    
+    <!-- Services -->
+    <script src="./js/services/StorageService.js"></script>
+    
+    <!-- Modèles -->
+    <script src="./js/models/EquipeModel.js"></script>
+    <script src="./js/models/RotationModel.js"></script>
+    
+    <!-- Vues -->
+    <script src="./js/views/ThemeManager.js"></script>
+    <script src="./js/views/CountdownView.js"></script>
+    <script src="./js/views/UIManager.js"></script>
+    
+    <!-- Contrôleurs -->
+    <script src="./js/controllers/EquipeController.js"></script>
+    <script src="./js/controllers/AppController.js"></script>
+    
+    <!-- Point d'entrée -->
+    <script src="./js/main.js"></script>
 </body>
 </html>
