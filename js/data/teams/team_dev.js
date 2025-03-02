@@ -20,5 +20,5 @@ const TEAM_DEV = {
         { id: 8, name: "Nicolas Dupont", position: "Data Scientist", initials: "ND", allergenes: [], birthdate: "03-08" }
     ],
     currentIndex: 0,
-    startDate: new Date('2025-03-07')
+    startDate: new Date('2025-02-07')
 };

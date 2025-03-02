@@ -81,10 +81,9 @@ class RotationModel {
     
     /**
      * Génère la liste des prochains responsables
-     * @param {number} [count=4] - Nombre de tours à générer
      * @returns {Array<RotationInfo>} Liste des prochains responsables
      */
-    getNextRotations(count = APP_CONFIG.NOMBRE_PROCHAINS_TOURS) {
+    getNextRotations() {
         // Met à jour l'index actuel
         this.updateCurrentIndex();
         
@@ -95,7 +94,10 @@ class RotationModel {
         // Date de référence (vendredi de la semaine actuelle)
         const currentFriday = DateUtils.getCurrentFriday();
         
-        // Génère les prochains tours
+        // Nombre de rotations à afficher = nombre de membres - 1 (car le membre actuel est déjà affiché séparément)
+        const count = members.length - 1;
+        
+        // Génère les prochains tours pour chaque membre restant de l'équipe
         for (let i = 1; i <= count; i++) {
             // Calcule l'index du prochain responsable
             const nextIndex = (currentIndex + i) % members.length;
@@ -126,6 +128,7 @@ class RotationModel {
     getPastRotations(count = APP_CONFIG.NOMBRE_HISTORIQUE) {
         const members = this._teamModel.getCurrentMembers();
         const currentIndex = this._teamModel.getCurrentIndex();
+        const startDate = this._teamModel.getStartDate();
         const result = [];
         
         // Date de référence (vendredi de la semaine actuelle)
@@ -133,19 +136,25 @@ class RotationModel {
         
         // Génère les tours précédents
         for (let i = 1; i <= count; i++) {
-            // Calcule l'index du responsable précédent
-            const pastIndex = (currentIndex - i + members.length) % members.length;
-            const pastMember = members[pastIndex];
-            
             // Calcule la date du tour précédent
             const pastDate = DateUtils.getFridayDate(currentFriday, -i);
             
-            result.push({
-                date: pastDate,
-                member: pastMember,
-                daysRemaining: 0, // Déjà passé
-                isToday: false
-            });
+            // Vérifie si la date est postérieure à la date de démarrage
+            if (pastDate >= startDate) {
+                // Calcule l'index du responsable précédent
+                const pastIndex = (currentIndex - i + members.length) % members.length;
+                const pastMember = members[pastIndex];
+                
+                result.push({
+                    date: pastDate,
+                    member: pastMember,
+                    daysRemaining: 0, // Déjà passé
+                    isToday: false
+                });
+            } else {
+                // Si la date est antérieure à la date de démarrage, on arrête
+                break;
+            }
         }
         
         return result;

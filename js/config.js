@@ -27,12 +27,6 @@ const APP_CONFIG = {
     EQUIPE_PAR_DEFAUT: 'dev',
     
     /**
-     * Nombre de membres à afficher dans la liste des prochains tours
-     * @type {number}
-     */
-    NOMBRE_PROCHAINS_TOURS: 5,
-    
-    /**
      * Nombre d'entrées à afficher dans l'historique
      * @type {number}
      */

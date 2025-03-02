@@ -133,7 +133,15 @@ class UIManager {
         this.nextPersonsListElement.innerHTML = '';
         
         // Vérifie que rotations est un tableau
-        if (!Array.isArray(rotations)) return;
+        if (!Array.isArray(rotations) || rotations.length === 0) {
+            // Afficher un message si aucune rotation future n'est disponible
+            this.nextPersonsListElement.innerHTML = `
+                <li class="person-item empty-list">
+                    <div class="empty-message">Aucune rotation future disponible</div>
+                </li>
+            `;
+            return;
+        }
         
         // Ajoute une entrée pour chaque prochain responsable
         for (const rotation of rotations) {
@@ -142,19 +150,34 @@ class UIManager {
             const li = document.createElement('li');
             li.className = 'person-item';
             
+            // Formatage du texte pour le décompte des jours
+            let countdownText;
+            if (rotation.daysRemaining === 1) {
+                countdownText = "Demain !";
+            } else {
+                countdownText = `Dans ${rotation.daysRemaining} jours`;
+            }
+            
             li.innerHTML = `
                 <div class="person-avatar">${rotation.member.initials || '??'}</div>
                 <div class="person-info">
                     <div class="person-name">${rotation.member.name || 'Non défini'}</div>
                     <div class="person-date">Vendredi ${DateUtils.formatDate(rotation.date)}</div>
                 </div>
-                <div class="person-countdown">Dans ${rotation.daysRemaining} jours</div>
+                <div class="person-countdown">${countdownText}</div>
             `;
             
             this.nextPersonsListElement.appendChild(li);
         }
-    }
-    
+        
+        // Si la liste est très longue, ajouter un style pour la rendre scrollable
+        if (rotations.length > 5) {
+            this.nextPersonsListElement.classList.add('scrollable-list');
+        } else {
+            this.nextPersonsListElement.classList.remove('scrollable-list');
+        }
+    }    
+
     /**
      * Met à jour l'affichage des membres de l'équipe
      * @param {Array} members - Liste des membres
@@ -172,9 +195,6 @@ class UIManager {
         // Index du membre actuel
         const currentIndex = members.findIndex(m => m && currentMember && m.id === currentMember.id);
         
-        // Date du vendredi actuel
-        const currentFriday = DateUtils.getCurrentFriday();
-        
         // Ajoute une carte pour chaque membre
         for (let i = 0; i < members.length; i++) {
             const member = members[i];
@@ -182,13 +202,6 @@ class UIManager {
             
             const div = document.createElement('div');
             div.className = 'team-member';
-            
-            // Calcule la position relative dans la rotation
-            const relativePosition = (i - currentIndex + members.length) % members.length;
-            
-            // Calcule la date du tour de ce membre
-            const memberDate = DateUtils.getFridayDate(currentFriday, relativePosition);
-            const formattedDate = DateUtils.formatDate(memberDate);
             
             // Détermine si le membre est le responsable actuel ou le prochain
             const isCurrentMember = i === currentIndex;
@@ -202,21 +215,16 @@ class UIManager {
                 statusBadge = '<div class="member-badge">Prochain</div>';
             }
             
-            // Badge de date
-            const dateBadge = `<div class="member-badge date">${formattedDate}</div>`;
-            
             div.innerHTML = `
                 <div class="member-avatar">${member.initials || '??'}</div>
                 <div class="member-name">${member.name || 'Non défini'}</div>
                 <div class="member-position">${member.position || ''}</div>
                 ${statusBadge}
-                ${dateBadge}
             `;
             
             this.teamListElement.appendChild(div);
         }
-    }
-    
+    }    
     /**
      * Met à jour l'affichage de l'historique
      * @param {Array<RotationInfo>} pastRotations - Liste des tours précédents
@@ -264,9 +272,19 @@ class UIManager {
             return;
         }
         
-        // Si aucun allergène, vide le conteneur et termine
+        // Vérification si aucun allergène n'est présent
         if (!allergenes || !Array.isArray(allergenes) || allergenes.length === 0) {
-            this.allergenesContainerElement.innerHTML = '';
+            // Afficher un message indiquant qu'aucun allergène n'est présent
+            this.allergenesContainerElement.innerHTML = `
+                <div class="allergenes-title">
+                    <i class="fas fa-check-circle"></i>
+                    Aucun allergène à prendre en compte
+                </div>
+                <div class="allergene-success">
+                    <i class="fas fa-info-circle"></i>
+                    Bonne nouvelle ! Aucun membre de cette équipe n'a d'allergènes déclarés.
+                </div>
+            `;
             return;
         }
         
@@ -369,6 +387,7 @@ class UIManager {
             let countdownText;
             if (birthday.daysRemaining === 0) {
                 countdownText = "C'est aujourd'hui !";
+                li.classList.add('birthday-today'); // Ajoute une classe spéciale pour aujourd'hui
             } else if (birthday.daysRemaining === 1) {
                 countdownText = "C'est demain !";
             } else {
@@ -386,6 +405,12 @@ class UIManager {
             
             this.birthdaysListElement.appendChild(li);
         }
+        
+        // Si la liste est très longue, ajouter une classe pour la rendre scrollable
+        if (birthdays.length > 5) {
+            this.birthdaysListElement.classList.add('scrollable-list');
+        } else {
+            this.birthdaysListElement.classList.remove('scrollable-list');
+        }
     }
-
 }
