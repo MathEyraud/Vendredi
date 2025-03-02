@@ -1,126 +1,183 @@
 /**
- * @fileoverview Service de gestion du stockage local
- * Fournit une API unifiée pour la persistance des données de l'application
+ * @fileoverview Service de gestion du stockage localStorage
+ * Fournit une API unifiée pour la persistance des données
  */
 
 /**
  * @namespace StorageService
- * Service de gestion du stockage local
+ * Service pour gérer le stockage local des données
  */
 const StorageService = {
     /**
      * Vérifie si le localStorage est disponible
-     * @returns {boolean} true si le localStorage est disponible
+     * @returns {boolean} true si localStorage est disponible
      */
     isAvailable() {
         try {
-            const test = "__test__";
-            localStorage.setItem(test, test);
-            localStorage.removeItem(test);
+            const testKey = '__test__';
+            localStorage.setItem(testKey, testKey);
+            localStorage.removeItem(testKey);
             return true;
         } catch (e) {
-            console.warn("localStorage n'est pas disponible:", e);
+            console.warn('LocalStorage n\'est pas disponible:', e);
             return false;
         }
     },
     
     /**
-     * Récupère une valeur depuis le localStorage
-     * @param {string} key - Clé de la valeur à récupérer
-     * @param {*} [defaultValue=null] - Valeur par défaut si la clé n'existe pas
-     * @returns {*} Valeur récupérée ou valeur par défaut
+     * Réinitialise les données avec les valeurs actuelles des fichiers d'équipe
+     * @returns {boolean} true si la réinitialisation a réussi
      */
-    get(key, defaultValue = null) {
-        if (!this.isAvailable()) return defaultValue;
+    resetStorage() {
+        console.log("Réinitialisation du localStorage avec les données fraîches des fichiers d'équipe");
+        
+        // Suppression des données existantes
+        if (this.isAvailable()) {
+            localStorage.removeItem(APP_CONFIG.STORAGE_KEY);
+            console.log("Données localStorage supprimées");
+        }
+        
+        // Sauvegarde des données fraîches
+        return this.saveData(loadTeams());
+    },
+    
+    /**
+     * Récupère les données du localStorage
+     * @param {boolean} [forceReset=false] - Force la réinitialisation du stockage
+     * @returns {Object} Données stockées ou données par défaut
+     */
+    getData(forceReset = false) {
+        // Si forceReset est à true, réinitialiser le stockage
+        if (forceReset) {
+            this.resetStorage();
+        }
+        
+        if (!this.isAvailable()) {
+            console.warn("LocalStorage n'est pas disponible, utilisation des données par défaut");
+            return SERVICES_DATA || {};
+        }
         
         try {
-            const item = localStorage.getItem(key);
-            if (item === null) return defaultValue;
-            
-            // Tente de parser la valeur comme JSON
-            try {
-                return JSON.parse(item);
-            } catch (e) {
-                // Si ce n'est pas du JSON, retourne la chaîne telle quelle
-                return item;
+            const data = localStorage.getItem(APP_CONFIG.STORAGE_KEY);
+            if (!data) {
+                console.log("Aucune donnée trouvée dans localStorage, initialisation avec les données par défaut");
+                this.saveData(SERVICES_DATA);
+                return SERVICES_DATA || {};
             }
+            
+            const parsedData = JSON.parse(data);
+            
+            // Vérifier que les données sont valides
+            if (!parsedData || typeof parsedData !== 'object' || Object.keys(parsedData).length === 0) {
+                console.warn("Données invalides dans localStorage, utilisation des données par défaut");
+                this.saveData(SERVICES_DATA);
+                return SERVICES_DATA || {};
+            }
+            
+            return parsedData;
         } catch (e) {
-            console.error(`Erreur lors de la récupération de ${key}:`, e);
-            return defaultValue;
+            console.error('Erreur lors de la récupération des données:', e);
+            return SERVICES_DATA || {};
         }
     },
     
     /**
-     * Enregistre une valeur dans le localStorage
-     * @param {string} key - Clé sous laquelle stocker la valeur
-     * @param {*} value - Valeur à stocker (sera convertie en JSON si nécessaire)
-     * @returns {boolean} true si le stockage a réussi
+     * Sauvegarde les données dans localStorage
+     * @param {Object} data - Données à sauvegarder
+     * @returns {boolean} true si la sauvegarde a réussi
      */
-    set(key, value) {
-        if (!this.isAvailable()) return false;
+    saveData(data) {
+        if (!this.isAvailable()) {
+            return false;
+        }
         
         try {
-            // Convertit les objets et tableaux en JSON
-            const valueToStore = typeof value === 'object' 
-                ? JSON.stringify(value) 
-                : String(value);
+            localStorage.setItem(APP_CONFIG.STORAGE_KEY, JSON.stringify(data));
+            console.log("Données sauvegardées dans localStorage");
+            return true;
+        } catch (e) {
+            console.error('Erreur lors de la sauvegarde des données:', e);
+            return false;
+        }
+    },
+    
+    /**
+     * Initialise les données de stockage si nécessaire
+     * @param {boolean} [forceReset=false] - Force la réinitialisation du stockage
+     */
+    initStorage(forceReset = false) {
+        if (!this.isAvailable()) {
+            return;
+        }
+        
+        // Si forceReset est activé ou les données n'existent pas, initialiser avec les données par défaut
+        if (forceReset || !localStorage.getItem(APP_CONFIG.STORAGE_KEY)) {
+            // Vérifier la structure des données
+            const freshData = loadTeams();
+            
+            // Vérifier un membre au hasard pour voir si la propriété allergenes existe
+            const teams = Object.values(freshData);
+            if (teams.length > 0 && teams[0].members && teams[0].members.length > 0) {
+                const firstMember = teams[0].members[0];
+                console.log("Vérification d'un membre:", firstMember);
                 
-            localStorage.setItem(key, valueToStore);
-            return true;
-        } catch (e) {
-            console.error(`Erreur lors de l'enregistrement de ${key}:`, e);
-            return false;
+                if (!firstMember.allergenes) {
+                    console.error("ATTENTION: La propriété 'allergenes' est manquante dans les fichiers d'équipe!");
+                }
+            }
+            
+            // Initialise avec les données par défaut
+            this.saveData(freshData);
         }
     },
     
     /**
-     * Supprime une valeur du localStorage
-     * @param {string} key - Clé de la valeur à supprimer
-     * @returns {boolean} true si la suppression a réussi
+     * Récupère l'identifiant du service actuellement sélectionné
+     * @returns {string} Identifiant du service
      */
-    remove(key) {
-        if (!this.isAvailable()) return false;
+    getSelectedService() {
+        if (!this.isAvailable()) {
+            return APP_CONFIG.EQUIPE_PAR_DEFAUT;
+        }
         
         try {
-            localStorage.removeItem(key);
+            return localStorage.getItem('selectedService') || APP_CONFIG.EQUIPE_PAR_DEFAUT;
+        } catch (e) {
+            return APP_CONFIG.EQUIPE_PAR_DEFAUT;
+        }
+    },
+    
+    /**
+     * Sauvegarde l'identifiant du service sélectionné
+     * @param {string} serviceId - Identifiant du service
+     * @returns {boolean} true si la sauvegarde a réussi
+     */
+    setSelectedService(serviceId) {
+        if (!this.isAvailable()) {
+            return false;
+        }
+        
+        try {
+            localStorage.setItem('selectedService', serviceId);
             return true;
         } catch (e) {
-            console.error(`Erreur lors de la suppression de ${key}:`, e);
             return false;
         }
     },
     
     /**
-     * Récupère l'état du mode sombre
-     * @returns {boolean} true si le mode sombre est activé
+     * Met à jour l'index actuel pour un service spécifique
+     * @param {string} serviceId - Identifiant du service
+     * @param {number} index - Nouvel index
+     * @returns {boolean} true si la mise à jour a réussi
      */
-    getDarkModeState() {
-        return this.get(APP_CONFIG.STORAGE_KEY_DARK_MODE, false);
-    },
-    
-    /**
-     * Enregistre l'état du mode sombre
-     * @param {boolean} isDarkMode - État du mode sombre
-     * @returns {boolean} true si l'enregistrement a réussi
-     */
-    setDarkModeState(isDarkMode) {
-        return this.set(APP_CONFIG.STORAGE_KEY_DARK_MODE, isDarkMode);
-    },
-    
-    /**
-     * Récupère l'identifiant de l'équipe sélectionnée
-     * @returns {string} Identifiant de l'équipe sélectionnée ou équipe par défaut
-     */
-    getSelectedTeam() {
-        return this.get(APP_CONFIG.STORAGE_KEY_EQUIPE, APP_CONFIG.EQUIPE_PAR_DEFAUT);
-    },
-    
-    /**
-     * Enregistre l'identifiant de l'équipe sélectionnée
-     * @param {string} teamId - Identifiant de l'équipe sélectionnée
-     * @returns {boolean} true si l'enregistrement a réussi
-     */
-    setSelectedTeam(teamId) {
-        return this.set(APP_CONFIG.STORAGE_KEY_EQUIPE, teamId);
+    updateServiceIndex(serviceId, index) {
+        const data = this.getData();
+        if (!data[serviceId]) {
+            return false;
+        }
+        
+        data[serviceId].currentIndex = index;
+        return this.saveData(data);
     }
 };

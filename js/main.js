@@ -4,8 +4,21 @@
  */
 
 // Initialise l'application lorsque le DOM est chargé
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Vérifie si l'élément des allergènes existe
+        const allergenesContainer = document.getElementById('allergenesContainer');
+        if (allergenesContainer) {
+            console.log("L'élément allergenesContainer existe dans le DOM");
+        } else {
+            console.error("L'élément allergenesContainer n'existe pas dans le DOM");
+        }
+        
+        // IMPORTANT: Réinitialisation du localStorage pour charger les dernières données
+        // Chargement des données fraîches depuis les fichiers d'équipe
+        console.log("Réinitialisation du localStorage pour charger les allergènes...");
+        StorageService.resetStorage();
+        
         // Crée et initialise le contrôleur principal
         const app = new AppController();
         app.init();

@@ -1,41 +1,73 @@
-/* variables.css */
+/* variables.css - Variables CSS globales pour l'application */
 
-/* Import de la police Poppins depuis Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+/* Import de la police de caractères */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Variables globales utilisées dans toute l'application */
 :root {
-    /* Couleurs principales de l'application */
-    --primary-color-light   : #2196F3;    /* Bleu clair pour le thème standard */
-    --primary-color-dark    : #64B5F6;    /* Bleu plus lumineux pour le thème sombre */
+    /* Couleurs principales */
+    --primary: #ff9a3c;           /* Orange pour éléments principaux */
+    --secondary: #6c5ce7;         /* Violet pour éléments secondaires */
+    --light: #f8f9fa;             /* Couleur claire pour fond */
+    --dark: #343a40;              /* Couleur foncée pour texte */
+    
+    /* Couleurs d'état */
+    --success: #38c172;           /* Vert pour succès */
+    --info: #3490dc;              /* Bleu pour info */
+    --warning: #f6993f;           /* Orange pour avertissement */
+    --danger: #e3342f;            /* Rouge pour erreur */
+    
+    /* Nuances de gris */
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-800: #343a40;
+    
+    /* Ombres */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+    
+    /* Arrondis */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 50px;     /* Pour les éléments très arrondis comme badges */
+    
+    /* Espacement */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Transitions */
+    --transition-speed: 0.2s;
+    --transition-timing: ease;
+    
+    /* Variables pour le mode sombre - seront appliquées quand .dark-mode est actif */
+    --bg-light: var(--gray-100);
+    --bg-dark: var(--dark);
+    --text-light: var(--dark);
+    --text-dark: var(--light);
+    --card-bg: white;
+    --card-border: var(--gray-300);
+    --item-hover: rgba(33, 150, 243, 0.1);
+}
 
-    /* Couleurs de fond pour les différents modes et états */
-    --background-light      : #f8f9fa;    /* Fond général en mode clair */
-    --background-dark       : #121212;    /* Fond général en mode sombre (gris très foncé) */
-    --background-light-gray : #f0f2f5;    /* Gris clair pour éléments secondaires */
-    --background-dark-gray  : #1e1e1e;    /* Gris foncé pour éléments secondaires en mode sombre */
-
-    /* Couleurs de texte pour les différents modes */
-    --text-light           : #ffffff;     /* Texte sur fond sombre */
-    --text-dark            : #212121;     /* Texte sur fond clair */
-    --text-red-light       : #f44336;     /* Texte d'alerte en mode clair */
-    --text-red-dark        : #ff7875;     /* Texte d'alerte en mode sombre (plus visible) */
-
-    /* Bordures arrondies pour différentes tailles d'éléments */
-    --border-radius-sm: 5px;     /* Petit arrondi (boutons, cartes petites) */
-    --border-radius-md: 15px;    /* Arrondi moyen (conteneurs) */
-    --border-radius-lg: 25px;    /* Grand arrondi (éléments spéciaux) */
-
-    /* Tailles de police standardisées */
-    --text-xs: 12px;      /* Très petit texte (notes, légendes) */
-    --text-sm: 14px;      /* Petit texte */
-    --text-base: 16px;    /* Texte normal */
-    --text-lg: 18px;      /* Texte large */
-    --text-xl: 20px;      /* Grands titres */
-    --text-2xl: 24px;     /* Très grands titres */
-    --text-3xl: 30px;     /* Titres principaux */
-
-    /* Effets visuels */
-    --hover-color: rgba(33, 149, 243, 0.2);              /* Couleur de survol avec transparence */
-    --box-shadow-base: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* Ombre standard pour les éléments */
+/* Variables pour le mode sombre */
+.dark-mode {
+    --bg-light: #121212;
+    --bg-dark: #1e1e1e;
+    --text-light: var(--light);
+    --text-dark: var(--gray-300);
+    --card-bg: #1e1e1e;
+    --card-border: #2d2d2d;
+    --item-hover: rgba(255, 255, 255, 0.05);
+    
+    /* Ajustement des couleurs principales pour le mode sombre */
+    --primary: #ffb86c;          /* Version plus lumineuse du orange */
+    --info: #64b5f6;             /* Version plus lumineuse du bleu info */
+    --danger: #ff5252;           /* Version plus lumineuse du rouge danger */
 }

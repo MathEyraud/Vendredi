@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendredi - Gestion des Tours de Croissants</title>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles CSS -->
+    <link rel="stylesheet" href="./styles/variables.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-croissant"></i>
+                    <span>Vendredi</span>
+                </div>
+                <select class="service-selector" id="serviceSelector">
+                    <!-- Options seront générées dynamiquement -->
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Section: Tour de cette semaine -->
+            <div class="card">
+                <div class="card-header">
+                    Cette semaine
+                </div>
+                <div class="card-body">
+                    <div class="current-week">
+                        <div class="current-week-title">C'est au tour de</div>
+                        <div class="current-person" id="currentPerson">Chargement...</div>
+                        <div class="current-date" id="currentDate">Chargement...</div>
+                        <div class="countdown">
+                            <i class="far fa-clock"></i>
+                            <span id="countdown">Chargement...</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Section allergènes -->
+                    <div class="allergenes-container" id="allergenesContainer">
+                        <!-- Contenu généré dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Prochains tours -->
+            <div class="card">
+                <div class="card-header">
+                    Prochains tours
+                </div>
+                <div class="card-body">
+                    <ul class="next-persons" id="nextPersonsList">
+                        <!-- Prochains tours générés dynamiquement -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section: Membres de l'équipe -->
+            <div class="card">
+                <div class="card-header">
+                    Membres de l'équipe
+                </div>
+                <div class="card-body">
+                    <div class="team-list" id="teamList">
+                        <!-- Liste des membres générée dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Historique -->
+            <div class="card">
+                <div class="card-header">
+                    Historique
+                </div>
+                <div class="card-body">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Personne</th>
+                                <th>Service</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Historique généré dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Vendredi © 2025 - Application de gestion des tours de croissants</p>
+            <!-- Le ThemeManager ajoutera ici l'interrupteur de thème -->
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <!-- Fichiers des équipes -->
+    <script src="./js/data/teams/team_dev.js"></script>
+    <script src="./js/data/teams/team_marketing.js"></script>
+    <script src="./js/data/teams/team_design.js"></script>
+    <script src="./js/data/teams/team_finance.js"></script>
+    
+    <!-- Core app scripts -->
+    <script src="./js/config.js"></script>
+    <script src="./js/utils/DateUtils.js"></script>
+    <script src="./js/services/StorageService.js"></script>
+    <script src="./js/models/TeamModel.js"></script>
+    <script src="./js/models/RotationModel.js"></script>
+    <script src="./js/ui/UIManager.js"></script>
+    <script src="./js/ui/ThemeManager.js"></script>
+    <script src="./js/controllers/AppController.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

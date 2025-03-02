@@ -1,0 +1,96 @@
+/* responsive.css - Styles pour l'adaptabilité mobile et tablette */
+
+/* Tablette (max-width: 768px) */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .service-selector {
+        width: 100%;
+    }
+    
+    .card-body {
+        padding: var(--spacing-md);
+    }
+    
+    .current-person {
+        font-size: 1.75rem;
+    }
+    
+    .team-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+    
+    .history-table {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .card-header {
+        padding: var(--spacing-md);
+    }
+    
+    .current-week {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+    
+    .current-person {
+        font-size: 1.5rem;
+    }
+    
+    .team-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .person-item {
+        flex-wrap: wrap;
+    }
+    
+    .person-countdown {
+        margin-top: var(--spacing-sm);
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Tables responsives pour mobile */
+    .history-table thead {
+        display: none;
+    }
+    
+    .history-table, 
+    .history-table tbody, 
+    .history-table tr, 
+    .history-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .history-table tr {
+        margin-bottom: var(--spacing-md);
+        border: 1px solid var(--gray-300);
+        border-radius: var(--border-radius-md);
+        overflow: hidden;
+    }
+    
+    .history-table td {
+        padding: var(--spacing-sm);
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+    
+    .history-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: var(--spacing-sm);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 600;
+    }
+}

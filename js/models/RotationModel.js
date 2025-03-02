@@ -1,123 +1,153 @@
 /**
- * @fileoverview Modèle de gestion de la rotation des participants
- * Gère la logique de calcul des tours et des dates de passage
+ * @fileoverview Modèle de gestion de la rotation des responsables
+ * Gère la logique de calcul des tours
  */
 
 /**
- * @typedef {Object} ResponsableInfo
- * @property {Date} date - Date de passage du responsable
- * @property {Object} personne - Données du responsable
- * @property {number} joursRestants - Nombre de jours restants avant le passage
- * @property {boolean} estAujourdhui - Indique si c'est le jour du passage
- * @property {boolean} estCetteSemaine - Indique si c'est la semaine en cours
+ * @typedef {Object} RotationInfo
+ * @property {Date} date - Date du tour
+ * @property {Object} member - Membre responsable
+ * @property {number} daysRemaining - Jours restants
+ * @property {boolean} isToday - Indique si c'est aujourd'hui
  */
 
 /**
+ * @class RotationModel
  * Gère la logique de rotation des responsables
- * @constructor
- * @param {Date} dateDepart - Date de départ pour le calcul de la rotation
  */
-function RotationModel(dateDepart) {
+class RotationModel {
     /**
-     * Date de référence pour le début de la rotation
-     * @type {Date}
-     * @private
+     * Crée une instance du modèle de rotation
+     * @param {TeamModel} teamModel - Modèle d'équipe
      */
-    this._dateDepart = new Date(dateDepart);
-    this._dateDepart.setHours(0, 0, 0, 0);
+    constructor(teamModel) {
+        /**
+         * Référence au modèle d'équipe
+         * @type {TeamModel}
+         * @private
+         */
+        this._teamModel = teamModel;
+    }
     
     /**
-     * Calcule l'index du responsable actuel dans la liste des participants
-     * @param {Array} participants - Liste des participants
-     * @param {Date} [dateReference=new Date()] - Date de référence pour le calcul
-     * @returns {number} Index du responsable dans la liste des participants
+     * Calcule l'index du responsable actuel
+     * @returns {number} Index du responsable actuel
      */
-    this.getIndexResponsableActuel = function(participants, dateReference = new Date()) {
-        const semainesEcoulees = DateUtils.calculerSemainesEcoulees(
-            this._dateDepart, 
-            dateReference
-        );
+    calculateCurrentIndex() {
+        const startDate = this._teamModel.getStartDate();
+        const members = this._teamModel.getCurrentMembers();
+        const currentDate = new Date();
         
-        return semainesEcoulees % participants.length;
-    };
+        // Calcul des semaines écoulées depuis la date de départ
+        const weeksPassed = DateUtils.getWeeksBetween(startDate, currentDate);
+        
+        // Calcul de l'index actuel en tenant compte de la rotation
+        return weeksPassed % members.length;
+    }
     
     /**
-     * Obtient les informations sur le responsable actuel
-     * @param {Array} participants - Liste des participants
-     * @param {Date} [dateReference=new Date()] - Date de référence pour le calcul
-     * @returns {ResponsableInfo|null} Informations sur le responsable actuel ou null
+     * Met à jour l'index du responsable actuel
+     * @returns {boolean} true si la mise à jour a réussi
      */
-    this.getResponsableActuel = function(participants, dateReference = new Date()) {
-        if (!participants || participants.length === 0) {
-            return null;
-        }
+    updateCurrentIndex() {
+        const newIndex = this.calculateCurrentIndex();
+        return this._teamModel.setCurrentIndex(newIndex);
+    }
+    
+    /**
+     * Récupère les informations sur le responsable actuel
+     * @returns {RotationInfo} Informations sur le responsable actuel
+     */
+    getCurrentRotation() {
+        // Met à jour l'index actuel pour s'assurer qu'il est correct
+        this.updateCurrentIndex();
         
-        const indexResponsable = this.getIndexResponsableActuel(participants, dateReference);
-        const personne = participants[indexResponsable];
-        const vendrediActuel = DateUtils.prochainVendredi(dateReference);
-        const joursRestants = DateUtils.calculerJoursRestants(dateReference, vendrediActuel);
-        const estCetteSemaine = DateUtils.estVendrediActuel(vendrediActuel);
-        const estAujourdhui = estCetteSemaine && DateUtils.estJourPetitDej();
+        // Récupère le membre actuel
+        const currentMember = this._teamModel.getCurrentMember();
+        
+        // Calcule la date du vendredi actuel
+        const currentFriday = DateUtils.getCurrentFriday();
+        
+        // Calcule les jours restants
+        const daysRemaining = DateUtils.getDaysUntil(currentFriday);
         
         return {
-            date: vendrediActuel,
-            personne: personne,
-            joursRestants: joursRestants,
-            estAujourdhui: estAujourdhui,
-            estCetteSemaine: estCetteSemaine
+            date: currentFriday,
+            member: currentMember,
+            daysRemaining: daysRemaining,
+            isToday: DateUtils.isToday(currentFriday)
         };
-    };
+    }
     
     /**
      * Génère la liste des prochains responsables
-     * @param {Array} participants - Liste des participants
-     * @param {number} [nbSemaines=participants.length] - Nombre de semaines à générer
-     * @param {Date} [dateReference=new Date()] - Date de référence pour le calcul
-     * @returns {Array<ResponsableInfo>} Liste des prochains responsables
+     * @param {number} [count=4] - Nombre de tours à générer
+     * @returns {Array<RotationInfo>} Liste des prochains responsables
      */
-    this.getProchainsTours = function(participants, nbSemaines = participants.length, dateReference = new Date()) {
-        if (!participants || participants.length === 0) {
-            return [];
-        }
+    getNextRotations(count = APP_CONFIG.NOMBRE_PROCHAINS_TOURS) {
+        // Met à jour l'index actuel
+        this.updateCurrentIndex();
         
-        const indexResponsable = this.getIndexResponsableActuel(participants, dateReference);
-        const vendrediActuel = DateUtils.prochainVendredi(dateReference);
+        const members = this._teamModel.getCurrentMembers();
+        const currentIndex = this._teamModel.getCurrentIndex();
         const result = [];
         
-        for (let i = 0; i < nbSemaines; i++) {
-            const prochaineDate = new Date(vendrediActuel);
-            prochaineDate.setDate(prochaineDate.getDate() + (i * 7));
+        // Date de référence (vendredi de la semaine actuelle)
+        const currentFriday = DateUtils.getCurrentFriday();
+        
+        // Génère les prochains tours
+        for (let i = 1; i <= count; i++) {
+            // Calcule l'index du prochain responsable
+            const nextIndex = (currentIndex + i) % members.length;
+            const nextMember = members[nextIndex];
             
-            const indexPersonne = (indexResponsable + i) % participants.length;
-            const personne = participants[indexPersonne];
-            const joursRestants = DateUtils.calculerJoursRestants(dateReference, prochaineDate);
-            const estCetteSemaine = DateUtils.estVendrediActuel(prochaineDate);
-            const estAujourdhui = estCetteSemaine && DateUtils.estJourPetitDej();
+            // Calcule la date du prochain tour
+            const nextDate = DateUtils.getFridayDate(currentFriday, i);
+            
+            // Calcule les jours restants
+            const daysRemaining = DateUtils.getDaysUntil(nextDate);
             
             result.push({
-                date: prochaineDate,
-                personne: personne,
-                joursRestants: joursRestants,
-                estAujourdhui: estAujourdhui,
-                estCetteSemaine: estCetteSemaine
+                date: nextDate,
+                member: nextMember,
+                daysRemaining: daysRemaining,
+                isToday: false // Par définition, les prochains tours ne sont jamais aujourd'hui
             });
         }
         
         return result;
-    };
+    }
     
     /**
-     * Trouve le responsable de la semaine en cours
-     * @param {Array} participants - Liste des participants
-     * @param {Date} [dateReference=new Date()] - Date de référence pour le calcul
-     * @returns {ResponsableInfo|null} Informations sur le responsable de la semaine
+     * Génère l'historique des tours précédents
+     * @param {number} [count=5] - Nombre d'entrées à générer
+     * @returns {Array<RotationInfo>} Liste des tours précédents
      */
-    this.getResponsableSemaine = function(participants, dateReference = new Date()) {
-        if (!participants || participants.length === 0) {
-            return null;
+    getPastRotations(count = APP_CONFIG.NOMBRE_HISTORIQUE) {
+        const members = this._teamModel.getCurrentMembers();
+        const currentIndex = this._teamModel.getCurrentIndex();
+        const result = [];
+        
+        // Date de référence (vendredi de la semaine actuelle)
+        const currentFriday = DateUtils.getCurrentFriday();
+        
+        // Génère les tours précédents
+        for (let i = 1; i <= count; i++) {
+            // Calcule l'index du responsable précédent
+            const pastIndex = (currentIndex - i + members.length) % members.length;
+            const pastMember = members[pastIndex];
+            
+            // Calcule la date du tour précédent
+            const pastDate = DateUtils.getFridayDate(currentFriday, -i);
+            
+            result.push({
+                date: pastDate,
+                member: pastMember,
+                daysRemaining: 0, // Déjà passé
+                isToday: false
+            });
         }
         
-        const tours = this.getProchainsTours(participants, participants.length, dateReference);
-        return tours.find(r => r.estCetteSemaine) || null;
-    };
+        return result;
+    }
 }

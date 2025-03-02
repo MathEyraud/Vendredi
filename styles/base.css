@@ -1,63 +1,92 @@
-/* Styles de base pour le corps de la page */
+/* base.css - Styles de base pour l'application */
+
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-    font-family: 'Poppins', sans-serif;  /* Police principale */
-    text-align: center;                  /* Centrage du contenu */
-    background-color: var(--background-light);
-    margin: 20px;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container global */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    flex: 1;
+}
+
+/* En-tête de l'application */
+header {
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
     transition: background-color 0.3s ease;
 }
 
-/* Application du mode sombre sur le body */
-.dark-mode {
-    background: var(--background-dark);
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.logo i {
+    font-size: 1.8rem;
+}
+
+/* Corps principal */
+main {
+    padding: var(--spacing-xl) 0;
+    flex: 1;
+}
+
+/* Pied de page */
+footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--card-border);
+    padding: var(--spacing-md);
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Styles de typographie */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
     color: var(--text-light);
-}
-
-/* Conteneur principal de l'application */
-.container {
-    max-width: 600px;                     /* Largeur maximale pour la lisibilité */
-    margin: auto;                         /* Centrage horizontal */
-    background: white;
-    padding: 20px;
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--box-shadow-base);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Adaptation du conteneur en mode sombre */
-.dark-mode .container {
-    background: var(--background-dark-gray);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* Fix pour les problèmes de flottement dans le conteneur */
-.container::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Style des titres principaux */
-h1 {
-    color: var(--primary-color-light);
-    font-weight: bold;
-    font-size: var(--text-3xl);
     transition: color 0.3s ease;
 }
 
-/* Adaptation du titre en mode sombre */
-.dark-mode h1 {
-    color: var(--primary-color-dark);
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-speed) var(--transition-timing);
 }
 
-/* Style des sous-titres */
-h2 {
-    color: var(--text-dark);
-    margin-top: 20px;
-    transition: color 0.3s ease;
-}
-
-/* Adaptation des sous-titres en mode sombre */
-.dark-mode h2 {
-    color: var(--text-light);
+a:hover {
+    color: var(--secondary);
 }
