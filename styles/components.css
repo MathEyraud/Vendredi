@@ -9,10 +9,13 @@
     color: var(--text-light);
     box-shadow: var(--box-shadow-base);
     animation: pulse 1.5s infinite;     /* Animation continue de pulsation */
+    transition: background 0.3s ease;
 }
 
 .dark-mode .highlight {
-    background: var(--background-dark-gray);
+    background: var(--primary-color-dark);
+    color: var(--background-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Animation de pulsation pour le highlight */
@@ -48,7 +51,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--background-light-gray);
+    background-color: #ccc;
     transition: .4s;
     border-radius: var(--border-radius-lg);
 }
@@ -61,14 +64,14 @@
     width: 17px;
     left: 4px;
     bottom: 4px;
-    background-color: var(--background-light);
+    background-color: white;
     transition: .4s;
     border-radius: 50%;
 }
 
 /* États du switch */
 input:checked + .slider {
-    background-color: var(--background-dark);
+    background-color: var(--primary-color-light);
 }
 
 input:checked + .slider:before {
@@ -84,13 +87,14 @@ input:checked + .slider:before {
     border-radius: var(--border-radius-sm);
     width: 180px;
     text-align: center;
-    transition: .4s;
+    transition: background-color 0.3s, color 0.3s;
     background-color: var(--primary-color-light);
     color: var(--text-light);
 }
 
 .dark-mode .dropbtn {
-    background-color: var(--background-dark);
+    background-color: var(--primary-color-dark);
+    color: var(--background-dark);
 }
 
 /* Conteneur du dropdown */
@@ -109,20 +113,34 @@ input:checked + .slider:before {
     border-radius: var(--border-radius-md);
     overflow: hidden;
     z-index: 1;
+    transition: background-color 0.3s;
+}
+
+.dark-mode .dropdown-content {
+    background-color: var(--background-dark-gray);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Liens dans le dropdown */
 .dropdown-content a {
-    color: black;
+    color: var(--text-dark);
     padding: 10px 16px;
     text-decoration: none;
     display: block;
-    transition: .3s;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .dropdown-content a {
+    color: var(--text-light);
 }
 
 /* Effet au survol des liens */
 .dropdown-content a:hover {
     background-color: var(--hover-color);
+}
+
+.dark-mode .dropdown-content a:hover {
+    background-color: rgba(100, 181, 246, 0.2);
 }
 
 /* Affichage du menu au survol */

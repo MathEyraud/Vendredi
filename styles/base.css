@@ -4,11 +4,13 @@ body {
     text-align: center;                  /* Centrage du contenu */
     background-color: var(--background-light);
     margin: 20px;
+    transition: background-color 0.3s ease;
 }
 
 /* Application du mode sombre sur le body */
 .dark-mode {
     background: var(--background-dark);
+    color: var(--text-light);
 }
 
 /* Conteneur principal de l'application */
@@ -19,6 +21,13 @@ body {
     padding: 20px;
     border-radius: var(--border-radius-md);
     box-shadow: var(--box-shadow-base);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Adaptation du conteneur en mode sombre */
+.dark-mode .container {
+    background: var(--background-dark-gray);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Fix pour les problèmes de flottement dans le conteneur */
@@ -33,6 +42,7 @@ h1 {
     color: var(--primary-color-light);
     font-weight: bold;
     font-size: var(--text-3xl);
+    transition: color 0.3s ease;
 }
 
 /* Adaptation du titre en mode sombre */
@@ -44,4 +54,10 @@ h1 {
 h2 {
     color: var(--text-dark);
     margin-top: 20px;
+    transition: color 0.3s ease;
+}
+
+/* Adaptation des sous-titres en mode sombre */
+.dark-mode h2 {
+    color: var(--text-light);
 }

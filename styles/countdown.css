@@ -5,6 +5,10 @@
     color: var(--text-light);
 }
 
+.dark-mode .countdown-value {
+    color: var(--text-dark);
+}
+
 /* Animation subtile de pulsation pour les secondes */
 @keyframes pulse {
     0% { transform: scale(1); }

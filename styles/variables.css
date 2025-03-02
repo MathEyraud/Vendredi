@@ -7,19 +7,19 @@
 :root {
     /* Couleurs principales de l'application */
     --primary-color-light   : #2196F3;    /* Bleu clair pour le thème standard */
-    --primary-color-dark    : #00081f;    /* Bleu foncé pour le thème sombre */
+    --primary-color-dark    : #64B5F6;    /* Bleu plus lumineux pour le thème sombre */
 
     /* Couleurs de fond pour les différents modes et états */
     --background-light      : #f8f9fa;    /* Fond général en mode clair */
-    --background-dark       : #00081f;    /* Fond général en mode sombre */
-    --background-light-gray : #a0a3af;    /* Gris clair pour éléments secondaires */
-    --background-dark-gray  : #62667e;    /* Gris foncé pour éléments secondaires en mode sombre */
+    --background-dark       : #121212;    /* Fond général en mode sombre (gris très foncé) */
+    --background-light-gray : #f0f2f5;    /* Gris clair pour éléments secondaires */
+    --background-dark-gray  : #1e1e1e;    /* Gris foncé pour éléments secondaires en mode sombre */
 
     /* Couleurs de texte pour les différents modes */
-    --text-light           : #eaf3fa;     /* Texte sur fond sombre */
-    --text-dark            : #000000;     /* Texte sur fond clair */
-    --text-red-light      : #dc3545;     /* Texte d'alerte en mode clair */
-    --text-red-dark       : #7e0813;     /* Texte d'alerte en mode sombre */
+    --text-light           : #ffffff;     /* Texte sur fond sombre */
+    --text-dark            : #212121;     /* Texte sur fond clair */
+    --text-red-light       : #f44336;     /* Texte d'alerte en mode clair */
+    --text-red-dark        : #ff7875;     /* Texte d'alerte en mode sombre (plus visible) */
 
     /* Bordures arrondies pour différentes tailles d'éléments */
     --border-radius-sm: 5px;     /* Petit arrondi (boutons, cartes petites) */
