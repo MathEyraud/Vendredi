@@ -22,6 +22,8 @@ class UIManager {
         this.teamListElement = document.getElementById('teamList');
         this.historyTableBodyElement = document.getElementById('historyTableBody');
         this.allergenesContainerElement = document.getElementById('allergenesContainer');
+        this.birthdaysListElement = document.getElementById('birthdaysList');
+        this.noBirthdaysElement = document.getElementById('noBirthdays');
         
         // Vérifie que tous les éléments nécessaires sont présents
         this._checkElements();
@@ -333,4 +335,57 @@ class UIManager {
         
         console.log("Test d'affichage des allergènes terminé.");
     }
+
+    /**
+     * Met à jour l'affichage des anniversaires
+     * @param {Array} birthdays - Liste des prochains anniversaires
+     */
+    updateBirthdays(birthdays) {
+        if (!this.birthdaysListElement || !this.noBirthdaysElement) {
+            console.error("Éléments pour les anniversaires non trouvés dans le DOM");
+            return;
+        }
+        
+        // Vide la liste
+        this.birthdaysListElement.innerHTML = '';
+        
+        // Affiche un message si aucun anniversaire n'est défini
+        if (!birthdays || birthdays.length === 0) {
+            this.birthdaysListElement.style.display = 'none';
+            this.noBirthdaysElement.style.display = 'block';
+            return;
+        }
+        
+        // Sinon, affiche la liste des anniversaires
+        this.birthdaysListElement.style.display = 'block';
+        this.noBirthdaysElement.style.display = 'none';
+        
+        // Ajoute une entrée pour chaque anniversaire
+        for (const birthday of birthdays) {
+            const li = document.createElement('li');
+            li.className = 'person-item';
+            
+            // Détermine le texte du décompte
+            let countdownText;
+            if (birthday.daysRemaining === 0) {
+                countdownText = "C'est aujourd'hui !";
+            } else if (birthday.daysRemaining === 1) {
+                countdownText = "C'est demain !";
+            } else {
+                countdownText = `Dans ${birthday.daysRemaining} jours`;
+            }
+            
+            li.innerHTML = `
+                <div class="person-avatar">${birthday.member.initials || '??'}</div>
+                <div class="person-info">
+                    <div class="person-name">${birthday.member.name || 'Non défini'}</div>
+                    <div class="person-date">${birthday.formattedDate}</div>
+                </div>
+                <div class="person-countdown">${countdownText}</div>
+            `;
+            
+            this.birthdaysListElement.appendChild(li);
+        }
+    }
+
 }

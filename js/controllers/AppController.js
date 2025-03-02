@@ -63,6 +63,9 @@ class AppController {
         const nextRotations = this.rotationModel.getNextRotations();
         const pastRotations = this.rotationModel.getPastRotations();
         const serviceName = this.teamModel.getCurrentServiceName();
+
+        // Récupération des anniversaires
+        const upcomingBirthdays = this.teamModel.getUpcomingBirthdays();
         
         // Récupération des allergènes
         const allergenes = this.teamModel.getCurrentAllergenes();
@@ -78,6 +81,7 @@ class AppController {
         this.uiManager.updateTeamMembers(currentMembers, currentRotation.member);
         this.uiManager.updateHistory(pastRotations, serviceName);
         this.uiManager.updateAllergenes(allergenes, membersWithAllergenes);
+        this.uiManager.updateBirthdays(upcomingBirthdays);
     }
     
     /**

@@ -30,19 +30,25 @@ const APP_CONFIG = {
      * Nombre de membres à afficher dans la liste des prochains tours
      * @type {number}
      */
-    NOMBRE_PROCHAINS_TOURS: 4,
+    NOMBRE_PROCHAINS_TOURS: 5,
     
     /**
      * Nombre d'entrées à afficher dans l'historique
      * @type {number}
      */
-    NOMBRE_HISTORIQUE: 5,
+    NOMBRE_HISTORIQUE: 6,
     
     /**
      * Liste des identifiants d'équipes disponibles
      * @type {Array}
      */
-    TEAM_IDS: ['dev', 'marketing', 'design', 'finance']
+    TEAM_IDS: ['dev', 'marketing', 'design', 'finance'],
+
+    /**
+     * Nombre d'anniversaires à afficher
+     * @type {number}
+     */
+    NOMBRE_ANNIVERSAIRES: 15,
 };
 
 /**

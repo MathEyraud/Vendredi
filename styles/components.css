@@ -219,7 +219,7 @@
     border-radius: var(--border-radius-xl);
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.75rem;
-    display: inline-block;
+    display: block;
 }
 
 .member-badge.current {
@@ -228,7 +228,7 @@
 
 .member-badge.date {
     background-color: var(--gray-400);
-    margin-top: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
     font-size: 0.7rem;
     display: block;
 }
@@ -390,4 +390,22 @@ input:checked + .slider:before {
     font-size: 0.9rem;
     color: var(--text-light);
     transition: color 0.3s ease;
+}
+
+/* Style spécial pour l'anniversaire du jour */
+.person-item.birthday-today .person-avatar {
+    background-color: var(--primary);
+    color: white;
+}
+
+.person-item.birthday-today .person-countdown {
+    background-color: var(--primary);
+    color: white;
+    font-weight: bold;
+}
+
+/* Icône gâteau pour les anniversaires */
+.card-header .fa-birthday-cake {
+    color: var(--primary);
+    margin-right: var(--spacing-sm);
 }

@@ -132,5 +132,49 @@ const DateUtils = {
         return date.getDate() === today.getDate() &&
                date.getMonth() === today.getMonth() &&
                date.getFullYear() === today.getFullYear();
-    }
+    },
+
+    /**
+     * Calcule les jours restants jusqu'à la prochaine occurrence d'un anniversaire
+     * @param {string} birthdate - Date d'anniversaire au format "MM-DD"
+     * @returns {number} Nombre de jours jusqu'au prochain anniversaire
+     */
+    getNextBirthdayDays(birthdate) {
+        if (!birthdate) return null;
+        
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        
+        // Extraction du mois et du jour
+        const [month, day] = birthdate.split('-').map(num => parseInt(num, 10));
+        
+        // Date de l'anniversaire cette année
+        let birthdayThisYear = new Date(currentYear, month - 1, day);
+        
+        // Si l'anniversaire est déjà passé cette année, on calcule pour l'année prochaine
+        if (birthdayThisYear < today) {
+            birthdayThisYear = new Date(currentYear + 1, month - 1, day);
+        }
+        
+        return this.getDaysBetween(today, birthdayThisYear);
+    },
+
+    /**
+     * Formate une date d'anniversaire pour l'affichage
+     * @param {string} birthdate - Date d'anniversaire au format "MM-DD"
+     * @returns {string} Date formatée (ex: "15 avril")
+     */
+    formatBirthdate(birthdate) {
+        if (!birthdate) return '';
+        
+        const [month, day] = birthdate.split('-').map(num => parseInt(num, 10));
+        
+        // Création d'une date temporaire pour le formatage
+        const tempDate = new Date(2000, month - 1, day);
+        
+        return tempDate.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long'
+        });
+    },
 };

@@ -294,4 +294,37 @@ class TeamModel {
     hasAllergenes() {
         return this.getCurrentAllergenes().length > 0;
     }
+
+    /**
+     * Récupère les prochains anniversaires de l'équipe actuelle
+     * @param {number} count - Nombre d'anniversaires à récupérer
+     * @returns {Array} Liste des prochains anniversaires
+     */
+    getUpcomingBirthdays(count = APP_CONFIG.NOMBRE_ANNIVERSAIRES) {
+        const members = this.getCurrentMembers();
+        
+        // Filtrer les membres qui ont une date d'anniversaire
+        const membersWithBirthday = members.filter(member => 
+            member.birthdate && member.birthdate.trim() !== '');
+        
+        if (membersWithBirthday.length === 0) {
+            return [];
+        }
+        
+        // Calculer les jours restants pour chaque anniversaire
+        const birthdaysWithDays = membersWithBirthday.map(member => {
+            const daysRemaining = DateUtils.getNextBirthdayDays(member.birthdate);
+            return {
+                member,
+                daysRemaining,
+                formattedDate: DateUtils.formatBirthdate(member.birthdate)
+            };
+        });
+        
+        // Trier par proximité (du plus proche au plus éloigné)
+        birthdaysWithDays.sort((a, b) => a.daysRemaining - b.daysRemaining);
+        
+        // Retourner le nombre demandé d'anniversaires
+        return birthdaysWithDays.slice(0, count);
+    }
 }

@@ -22,6 +22,12 @@ A lightweight web application to manage weekly breakfast rotations within differ
   - Allergen tracking and warnings
   - Visual identification of current and next person
 
+- **Birthday Management**
+  - Track team member birthdays (optional)
+  - Display upcoming birthdays in chronological order
+  - Special highlight for today's birthdays
+  - Countdown to upcoming celebrations
+
 - **User Experience**
   - Dark mode support with automatic system detection
   - Responsive design for all devices
@@ -104,14 +110,16 @@ const TEAM_[UPPERCASE_ID] = {
             name: "First Last", 
             position: "Position", 
             initials: "FL",
-            allergenes: ["Allergen1", "Allergen2"]  // List of allergens (empty if none)
+            allergenes: ["Allergen1", "Allergen2"],  // List of allergens (empty if none)
+            birthdate: "MM-DD"  // Optional birthday (MM-DD format)
         },
         { 
             id: 2, 
             name: "Another Person", 
             position: "Position", 
             initials: "AP",
-            allergenes: []  // No allergens for this person
+            allergenes: [],  // No allergens for this person
+            birthdate: "MM-DD"  // Optional birthday (MM-DD format)
         },
         // Add all team members here
     ],
@@ -137,6 +145,7 @@ if (typeof TEAM_[UPPERCASE_ID] !== 'undefined') teams.[id] = TEAM_[UPPERCASE_ID]
 
 - **Dark Mode**: Toggle using the switch in the footer
 - **Allergens**: Add allergens to team members in team files
+- **Birthdays**: Add birthdates (optional) to celebrate team members
 - **Colors**: Edit variables in `styles/variables.css`
 - **Layout**: Adjust styling in component CSS files
 
