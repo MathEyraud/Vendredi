@@ -1,0 +1,126 @@
+/*------------------------------------------------------
+ * dark-mode.css
+ * 
+ * Contient toutes les adaptations pour le mode sombre
+ * de l'application. Ces styles sont appliqués quand
+ * la classe "dark-mode" est présente sur le body.
+ *------------------------------------------------------*/
+
+/* ===== DARK MODE - FORMULAIRES =====
+ * Adaptations des formulaires en mode sombre
+ */
+ .dark-mode .service-selector {
+    background-color: rgba(255, 255, 255, 0.25); /* Augmente le contraste en mode sombre */
+    border-color: rgba(255, 255, 255, 0.4); /* Bordure plus visible */
+}
+
+.dark-mode .service-selector:focus,
+.dark-mode .service-selector:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Contraste encore meilleur au survol */
+    border-color: var(--color-button-alt); /* Utilise la couleur d'accent du mode sombre */
+}
+
+.dark-mode .service-selector option {
+    background-color: var(--bg-dark);
+    color: var(--color-bg-1); /* Meilleur contraste */
+}
+
+/* ===== DARK MODE - RESPONSABLE ACTUEL =====
+ * Adaptations pour la section du responsable en mode sombre
+ */
+.dark-mode .current-person,
+.dark-mode .current-date {
+    color: var(--color-button-alt); /* #2BBBD4 en mode sombre */
+}
+
+.dark-mode .current-week-title {
+    color: rgba(255, 255, 255, 0.8); /* Meilleur contraste en mode sombre */
+}
+
+.dark-mode .countdown {
+    background-color: var(--color-button-alt); /* #2BBBD4 */
+    color: var(--color-bg-1); /* Texte blanc pour un bon contraste */
+}
+
+.dark-mode .countdown.today {
+    background-color: var(--color-dynamic); /* Garder la couleur dynamique (rouge) pour aujourd'hui */
+}
+
+/* ===== DARK MODE - LISTES DE PERSONNES =====
+ * Adaptations pour les listes de personnes en mode sombre
+ */
+.dark-mode .person-name,
+.dark-mode .person-date {
+    color: var(--color-bg-1); /* Texte blanc pour un meilleur contraste */
+}
+
+.dark-mode .person-countdown {
+    background-color: var(--color-button-alt); /* #2BBBD4 */
+    color: var(--color-bg-1);
+}
+
+.dark-mode .person-item.birthday-today .person-countdown {
+    background-color: var(--color-dynamic);
+    color: white;
+    /* Ajouter une ombre pour améliorer le contraste */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* ===== DARK MODE - MEMBRES D'ÉQUIPE =====
+ * Adaptations pour la grille des membres en mode sombre
+ */
+.dark-mode .member-name,
+.dark-mode .member-position {
+    color: var(--color-bg-1); /* Texte blanc pour un meilleur contraste */
+}
+
+/* Correction du hover en mode sombre pour les cartes membres */
+.dark-mode .team-member:hover {
+    background-color: rgba(0, 148, 194, 0.3); /* Version plus contrastée du hover en mode sombre */
+}
+
+/* ===== DARK MODE - TABLEAUX =====
+ * Adaptations pour les tableaux en mode sombre
+ */
+.dark-mode .history-table td {
+    color: var(--color-bg-1); /* Meilleur contraste */
+    border-color: rgba(255, 255, 255, 0.1); /* Bordure plus visible */
+}
+
+/* ===== DARK MODE - ALLERGÈNES =====
+ * Adaptations pour la section allergènes en mode sombre
+ */
+.dark-mode .allergene-person span {
+    color: var(--color-bg-1); /* Meilleur contraste */
+}
+
+.dark-mode .allergene-warning {
+    background-color: rgba(230, 50, 80, 0.2); /* Plus de contraste en mode sombre */
+    color: #ff8da1; /* Rouge plus clair pour le contraste */
+}
+
+.dark-mode .allergene-success {
+    background-color: rgba(0, 158, 125, 0.2); /* Plus de contraste en mode sombre */
+    color: #5ae0c3; /* Vert plus clair pour le contraste */
+}
+
+/* ===== DARK MODE - MESSAGES =====
+ * Adaptations pour les messages et états vides en mode sombre
+ */
+.dark-mode .empty-message {
+    color: var(--color-bg-1); /* Meilleur contraste */
+}
+
+/* ===== DARK MODE - BOUTONS =====
+ * Adaptations pour les boutons en mode sombre
+ */
+.dark-mode .btn:focus {
+    outline-color: var(--color-button-alt);
+}
+
+/* ===== DARK MODE - DIVERS =====
+ * Autres adaptations pour le mode sombre
+ */
+.dark-mode .scrollable-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Plus visible en mode sombre */
+}

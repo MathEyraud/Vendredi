@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendredi - Gestion des Tours de Croissants</title>
+    <meta name="description" content="Application de gestion des rotations pour les croissants du vendredi">
+    <title>Vendredi - Rotation des croissants</title>
+    
     <!-- Font Awesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Styles CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Styles CSS de l'application -->
     <link rel="stylesheet" href="./styles/variables.css">
     <link rel="stylesheet" href="./styles/base.css">
     <link rel="stylesheet" href="./styles/components.css">
     <link rel="stylesheet" href="./styles/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- En-tête de l'application -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -20,116 +27,119 @@
                     <i class="fas fa-croissant"></i>
                     <span>Vendredi</span>
                 </div>
-                <select class="service-selector" id="serviceSelector">
-                    <!-- Options seront générées dynamiquement -->
+                <select id="serviceSelector" class="service-selector">
+                    <!-- Options remplies dynamiquement par JavaScript -->
                 </select>
             </div>
         </div>
     </header>
-
+    
+    <!-- Corps principal de l'application -->
     <main>
         <div class="container">
-            <!-- Section: Tour de cette semaine -->
+            <!-- Responsable de la semaine -->
             <div class="card">
                 <div class="card-header">
-                    Cette semaine
+                    <span><i class="fas fa-calendar-day"></i>&nbsp;&nbsp;Responsable de la semaine</span>
                 </div>
                 <div class="card-body">
                     <div class="current-week">
-                        <div class="current-week-title">C'est au tour de</div>
-                        <div class="current-person" id="currentPerson">Chargement...</div>
-                        <div class="current-date" id="currentDate">Chargement...</div>
-                        <div class="countdown">
-                            <i class="far fa-clock"></i>
-                            <span id="countdown">Chargement...</span>
+                        <div class="current-week-title">Qui apporte les croissants ?</div>
+                        <div id="currentPerson" class="current-person">Chargement...</div>
+                        <div id="currentDate" class="current-date">Vendredi...</div>
+                        <div id="countdown" class="countdown">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Calcul en cours...</span>
                         </div>
                     </div>
                     
-                    <!-- Section allergènes -->
-                    <div class="allergenes-container" id="allergenesContainer">
-                        <!-- Contenu généré dynamiquement -->
+                    <!-- Allergènes -->
+                    <div id="allergenesContainer" class="allergenes-container">
+                        <!-- Contenu rempli dynamiquement par JavaScript -->
                     </div>
                 </div>
             </div>
-
-            <!-- Section: Prochains tours -->
+            
+            <!-- Prochaines rotations -->
             <div class="card">
                 <div class="card-header">
-                    Prochains tours
+                    <span><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Prochaines rotations</span>
                 </div>
                 <div class="card-body">
-                    <ul class="next-persons" id="nextPersonsList">
-                        <!-- Prochains tours générés dynamiquement -->
+                    <ul id="nextPersonsList" class="next-persons">
+                        <!-- Liste remplie dynamiquement par JavaScript -->
                     </ul>
                 </div>
             </div>
-
-            <!-- Section: Membres de l'équipe -->
+            
+            <!-- Prochains anniversaires -->
             <div class="card">
                 <div class="card-header">
-                    Membres de l'équipe
-                </div>
-                <div class="card-body">
-                    <div class="team-list" id="teamList">
-                        <!-- Liste des membres générée dynamiquement -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section Anniversaires -->
-            <div class="card">
-                <div class="card-header">
-                    Anniversaires de l'équipe
+                    <span><i class="fas fa-birthday-cake"></i>&nbsp;&nbsp;Prochains anniversaires</span>
                 </div>
                 <div class="card-body">
                     <ul id="birthdaysList" class="next-persons">
-                        <!-- Liste des anniversaires générée dynamiquement -->
+                        <!-- Liste remplie dynamiquement par JavaScript -->
                     </ul>
-                    <div id="noBirthdays" class="text-center">
-                        Aucun anniversaire renseigné dans cette équipe.
+                    <div id="noBirthdays" style="display: none;" class="empty-message">
+                        <i class="fas fa-info-circle"></i> Aucun anniversaire n'est défini pour les membres de cette équipe.
                     </div>
                 </div>
             </div>
-
-            <!-- Section: Historique -->
+            
+            <!-- Membres de l'équipe -->
             <div class="card">
                 <div class="card-header">
-                    Historique
+                    <span><i class="fas fa-users"></i>&nbsp;&nbsp;Membres de l'équipe</span>
                 </div>
                 <div class="card-body">
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Personne</th>
-                                <th>Service</th>
-                                <th>Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody id="historyTableBody">
-                            <!-- Historique généré dynamiquement -->
-                        </tbody>
-                    </table>
+                    <div id="teamList" class="team-list">
+                        <!-- Liste remplie dynamiquement par JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historique des tours -->
+            <div class="card">
+                <div class="card-header">
+                    <span><i class="fas fa-history"></i>&nbsp;&nbsp;Historique</span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Personne</th>
+                                    <th>Service</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- Contenu rempli dynamiquement par JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
+    
+    <!-- Pied de page -->
     <footer>
         <div class="container">
-            <p>Vendredi © 2025 - Application de gestion des tours de croissants - Eyraud Mathieu</p>
-            <!-- Le ThemeManager ajoutera ici l'interrupteur de thème -->
+            <p>Vendredi - Application de gestion des croissants &copy; 2025 - Eyraud Mathieu</p>
+            <!-- Le ThemeManager va insérer le switch du mode sombre ici -->
         </div>
     </footer>
-
-    <!-- JavaScript -->
-    <!-- Fichiers des équipes -->
+    
+    <!-- Fichiers d'équipes -->
     <script src="./js/data/teams/team_dev.js"></script>
     <script src="./js/data/teams/team_marketing.js"></script>
     <script src="./js/data/teams/team_design.js"></script>
     <script src="./js/data/teams/team_finance.js"></script>
     
-    <!-- Core app scripts -->
+    <!-- JavaScript de l'application -->
     <script src="./js/config.js"></script>
     <script src="./js/utils/DateUtils.js"></script>
     <script src="./js/services/StorageService.js"></script>

@@ -1,20 +1,70 @@
-/* variables.css - Variables CSS globales pour l'application */
-
-/* Import de la police de caractères */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Import de la police Source Sans Pro */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 
 :root {
-    /* Couleurs principales */
-    --primary: #ff9a3c;           /* Orange pour éléments principaux */
-    --secondary: #6c5ce7;         /* Violet pour éléments secondaires */
-    --light: #f8f9fa;             /* Couleur claire pour fond */
-    --dark: #343a40;              /* Couleur foncée pour texte */
+    /* Couleurs - Fond Clair (Light Mode) */
+    --color-active: #164194;
+    --color-dynamic: #E1051E;
+    --color-interactive: #0E2C49;
+    --color-informative: rgba(14, 44, 73, 0.7);
+    --color-inactive: rgba(14, 44, 73, 0.15);
+    --color-button: #92A6CD;
+    --color-blue-bg: #0E2C49;
+    --color-bg-1: #FFFFFF;
+    --color-bg-2: #0E2C49;
+    --color-bg-3: #0E2C49;
+    
+    /* Couleurs - Alarmes et Alertes */
+    --color-error: #E63250;
+    --color-error-light: #FDF1F4;
+    --color-warning: #DB7200;
+    --color-warning-light: #FFF8F0;
+    --color-success: #009E7D;
+    --color-success-light: #F0FFFC;
+    --color-notify-1: #0094C2;
+    --color-notify-1-light: #F0FBFF;
+    --color-notify-2: #1F4492;
+    --color-notify-2-light: #F1F5FB;
+    
+    /* Couleurs - Secondaires */
+    --color-brick: #E59790;
+    --color-sienna: #BDA6A5;
+    --color-brown: #D6A256;
+    --color-khaki: #AEAE7F;
+    --color-olive: #91B764;
+    --color-button-alt: #2BBBD4;
+    --color-electric-blue: #73B1E6;
+    --color-bluish-grey: #93AFC3;
+    --color-lavender: #A9A2F4;
+    --color-purple: #D399C8;
+    
+    /* Typographie */
+    --font-family: 'Source Sans Pro', sans-serif;
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+    --font-weight-light: 300;
+    --font-weight-extralight: 200;
+    
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+    
+    /* Mappage aux couleurs existantes pour compatibilité */
+    --primary: var(--color-active);
+    --secondary: var(--color-button-alt);
+    --light: var(--color-bg-1);
+    --dark: var(--color-blue-bg);
     
     /* Couleurs d'état */
-    --success: #38c172;           /* Vert pour succès */
-    --info: #3490dc;              /* Bleu pour info */
-    --warning: #f6993f;           /* Orange pour avertissement */
-    --danger: #e3342f;            /* Rouge pour erreur */
+    --success: var(--color-success);
+    --info: var(--color-notify-1);
+    --warning: var(--color-warning);
+    --danger: var(--color-error);
     
     /* Nuances de gris */
     --gray-100: #f8f9fa;
@@ -33,7 +83,7 @@
     --border-radius-sm: 4px;
     --border-radius-md: 8px;
     --border-radius-lg: 12px;
-    --border-radius-xl: 50px;     /* Pour les éléments très arrondis comme badges */
+    --border-radius-xl: 50px;
     
     /* Espacement */
     --spacing-xs: 0.25rem;
@@ -46,28 +96,33 @@
     --transition-speed: 0.2s;
     --transition-timing: ease;
     
-    /* Variables pour le mode sombre - seront appliquées quand .dark-mode est actif */
-    --bg-light: var(--gray-100);
-    --bg-dark: var(--dark);
-    --text-light: var(--dark);
-    --text-dark: var(--light);
+    /* Variables pour le mode clair (par défaut) */
+    --bg-light: var(--color-bg-1);
+    --bg-dark: var(--color-blue-bg);
+    --text-light: var(--color-interactive);
+    --text-dark: var(--color-bg-1);
     --card-bg: white;
     --card-border: var(--gray-300);
-    --item-hover: rgba(33, 150, 243, 0.1);
+    --item-hover: var(--color-inactive);
 }
 
 /* Variables pour le mode sombre */
 .dark-mode {
+    /* Couleurs - Fond Bleu (Dark Mode) */
+    --color-interactive: #FFFFFF;
+    --color-informative: rgba(255, 255, 255, 0.7);
+    --color-inactive: rgba(255, 255, 255, 0.15);
+    
     --bg-light: #121212;
-    --bg-dark: #1e1e1e;
-    --text-light: var(--light);
+    --bg-dark: var(--color-blue-bg);
+    --text-light: var(--color-bg-1);
     --text-dark: var(--gray-300);
     --card-bg: #1e1e1e;
     --card-border: #2d2d2d;
     --item-hover: rgba(255, 255, 255, 0.05);
     
     /* Ajustement des couleurs principales pour le mode sombre */
-    --primary: #ffb86c;          /* Version plus lumineuse du orange */
-    --info: #64b5f6;             /* Version plus lumineuse du bleu info */
-    --danger: #ff5252;           /* Version plus lumineuse du rouge danger */
+    --primary: var(--color-button-alt);
+    --info: var(--color-electric-blue);
+    --danger: var(--color-error);
 }

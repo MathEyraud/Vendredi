@@ -1,0 +1,77 @@
+/*------------------------------------------------------
+ * layout.css
+ * 
+ * Contient les styles pour la structure de base et
+ * les composants de mise en page comme les cartes
+ *------------------------------------------------------*/
+
+/* ===== CARD COMPONENT =====
+ * Styles pour les cartes qui contiennent les différentes sections
+ */
+ .card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: var(--spacing-xl);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* En-tête de carte avec le titre et les icônes */
+.card-header {
+    background-color: var(--color-blue-bg);
+    color: var(--color-bg-1); /* Assure un contraste suffisant */
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: var(--font-weight-semibold);
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Corps de la carte contenant le contenu principal */
+.card-body {
+    padding: var(--spacing-xl);
+}
+
+/* ===== SCROLLABLE COMPONENTS =====
+ * Styles pour les conteneurs défilables
+ */
+.scrollable-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+}
+
+/* Personnalisation de la barre de défilement */
+.scrollable-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-list::-webkit-scrollbar-track {
+    background: var(--color-inactive);
+    border-radius: 3px;
+}
+
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: var(--color-button-alt);
+    border-radius: 3px;
+}
+
+/* ===== CONTAINER STYLES =====
+ * Styles pour les conteneurs spécifiques
+ */
+.allergenes-container {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px dashed var(--card-border);
+    transition: border-color 0.3s ease;
+}
+
+/* Améliore l'accessibilité des tables sur mobiles */
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+}

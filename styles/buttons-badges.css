@@ -1,0 +1,146 @@
+/*------------------------------------------------------
+ * buttons-badges.css
+ * 
+ * Contient les styles pour les boutons et les badges
+ * ainsi que d'autres éléments interactifs
+ *------------------------------------------------------*/
+
+/* ===== BUTTONS =====
+ * Styles pour les boutons avec accessibilité améliorée
+ */
+ .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--color-button);
+    color: var(--color-bg-1); /* Contraste optimal */
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-active);
+    transform: translateY(-2px);
+}
+
+.btn:focus {
+    outline: 3px solid var(--color-button-alt); /* Focus visible pour accessibilité au clavier */
+    outline-offset: 2px;
+}
+
+/* Variantes de boutons */
+.btn-primary {
+    background-color: var(--color-active);
+}
+
+.btn-secondary {
+    background-color: var(--color-button-alt);
+}
+
+.btn-success {
+    background-color: var(--color-success);
+}
+
+.btn-danger {
+    background-color: var(--color-error);
+}
+
+.btn-warning {
+    background-color: var(--color-warning);
+}
+
+/* Tailles de boutons */
+.btn-sm {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.85rem;
+}
+
+.btn-lg {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1.1rem;
+}
+
+/* Bouton avec icône */
+.btn i {
+    margin-right: var(--spacing-xs);
+}
+
+/* ===== BADGES =====
+ * Styles pour les badges génériques
+ */
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 75%;
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--border-radius-xl);
+}
+
+/* Variantes de badges */
+.badge-primary {
+    background-color: var(--color-active);
+    color: white; /* Contraste optimal */
+}
+
+.badge-secondary {
+    background-color: var(--color-button);
+    color: white; /* Contraste optimal */
+}
+
+.badge-success {
+    background-color: var(--color-success);
+    color: white; /* Contraste optimal */
+}
+
+.badge-danger {
+    background-color: var(--color-error);
+    color: white; /* Contraste optimal */
+}
+
+.badge-warning {
+    background-color: var(--color-warning);
+    color: white; /* Contraste optimal */
+}
+
+/* ===== INTERACTIVE ELEMENTS =====
+ * Styles pour d'autres éléments interactifs
+ */
+
+/* Élément cliquable générique */
+.clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clickable:hover {
+    opacity: 0.8;
+}
+
+/* Indicateur de chargement */
+.loading-indicator {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: var(--color-active);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

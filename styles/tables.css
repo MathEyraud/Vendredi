@@ -1,0 +1,77 @@
+/*------------------------------------------------------
+ * tables.css
+ * 
+ * Contient les styles pour les tableaux et
+ * notamment le tableau d'historique
+ *------------------------------------------------------*/
+
+/* ===== HISTORY TABLE COMPONENT =====
+ * Styles pour le tableau d'historique des rotations
+ */
+ .history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Styles communs pour les cellules et en-têtes */
+.history-table th, 
+.history-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--card-border);
+    transition: border-color 0.3s ease;
+}
+
+/* En-têtes de colonnes */
+.history-table th {
+    background-color: var(--color-blue-bg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-bg-1); /* Contraste optimal */
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+/* Cellules de données */
+.history-table td {
+    color: var(--color-interactive); /* Contraste amélioré */
+    transition: color 0.3s ease;
+}
+
+/* ===== TABLE RESPONSIVE =====
+ * Styles pour garantir que les tableaux sont utilisables sur mobiles
+ */
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+}
+
+/* ===== DATA DISPLAY TABLE =====
+ * Styles pour les tableaux de données génériques
+ */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-lg);
+}
+
+.data-table th,
+.data-table td {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--card-border);
+}
+
+.data-table th {
+    background-color: var(--gray-200);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-interactive);
+}
+
+/* Alternance des couleurs de lignes pour meilleure lisibilité */
+.data-table tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--item-hover);
+}

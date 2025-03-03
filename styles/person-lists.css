@@ -1,0 +1,119 @@
+/*------------------------------------------------------
+ * person-lists.css
+ * 
+ * Contient les styles pour les listes de personnes
+ * (prochaines rotations, anniversaires)
+ *------------------------------------------------------*/
+
+/* ===== PERSON LIST COMPONENT =====
+ * Styles pour les listes de personnes
+ */
+ .next-persons {
+    list-style: none;
+}
+
+.person-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--card-border);
+    transition: border-color 0.3s ease;
+}
+
+.person-item:last-child {
+    border-bottom: none;
+}
+
+/* Avatar circulaire avec initiales */
+.person-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-button);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--spacing-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-bg-1); /* Contraste avec l'arrière-plan du badge */
+}
+
+/* Conteneur d'informations sur la personne */
+.person-info {
+    flex: 1;
+}
+
+/* Nom de la personne */
+.person-name {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-interactive); /* Amélioration du contraste */
+    transition: color 0.3s ease;
+}
+
+/* Date de rotation/anniversaire */
+.person-date {
+    font-size: 0.9rem;
+    color: var(--color-interactive); /* Amélioration du contraste */
+    opacity: 0.8; /* Différenciation légère tout en maintenant le contraste */
+}
+
+/* Badge de décompte des jours */
+.person-countdown {
+    background-color: var(--color-bg-2);
+    color: var(--color-bg-1); 
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-semibold);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== BIRTHDAY STYLES =====
+ * Styles spécifiques pour les anniversaires
+ */
+
+/* Style spécial pour l'anniversaire du jour */
+.person-item.birthday-today .person-avatar {
+    background-color: var(--color-dynamic);
+    color: white; /* Contraste maximal */
+}
+
+.person-item.birthday-today .person-countdown {
+    background-color: var(--color-dynamic);
+    color: white; /* Contraste maximal */
+    font-weight: var(--font-weight-bold);
+}
+
+/* Icône gâteau pour les anniversaires */
+.card-header .fa-birthday-cake {
+    color: var(--color-bg-1); /* Contraste avec fond bleu du header */
+}
+
+/* Animation pour les anniversaires du jour */
+.birthday-today .person-avatar,
+.birthday-today .person-countdown {
+    animation: pulse 2s infinite;
+}
+
+/* Style spécifique pour la liste des anniversaires */
+#birthdaysList.scrollable-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+}
+
+/* ===== EMPTY STATE =====
+ * Style pour les états vides
+ */
+.empty-list {
+    justify-content: center;
+    padding: var(--spacing-lg) 0;
+}
+
+.empty-message {
+    color: var(--color-interactive); /* Meilleur contraste */
+    opacity: 0.8;
+    font-style: italic;
+    text-align: center;
+}

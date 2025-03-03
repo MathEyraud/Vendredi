@@ -1,0 +1,161 @@
+/*------------------------------------------------------
+ * utilities.css
+ * 
+ * Contient des classes utilitaires et des améliorations
+ * d'accessibilité pour l'application
+ *------------------------------------------------------*/
+
+/* ===== ACCESSIBILITY CLASSES =====
+ * Classes pour améliorer l'accessibilité
+ */
+
+/* Cache visuellement le contenu mais le laisse accessible aux lecteurs d'écran */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Focus visible uniquement lors de la navigation au clavier */
+.focus-visible:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ===== ANIMATIONS =====
+ * Animations réutilisables
+ */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== FOCUS STYLES =====
+ * Améliorations des styles de focus pour l'accessibilité
+ */
+
+/* Style de focus global pour meilleure accessibilité */
+:focus {
+    outline: 2px solid var(--color-button-alt);
+    outline-offset: 2px;
+}
+
+/* Styles de focus spécifiques aux composants */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--color-button-alt);
+    box-shadow: 0 0 0 2px rgba(43, 187, 212, 0.4);
+}
+
+/* ===== CONTRAST ENHANCEMENTS =====
+ * Améliorations du contraste pour l'accessibilité
+ */
+
+/* Assurer un bon contraste pour les utilisateurs daltoniens */
+.member-badge.current,
+.countdown.today,
+.person-item.birthday-today .person-countdown {
+    /* La couleur dynamique (rouge) peut être difficile à distinguer pour certains daltoniens */
+    /* Ajouter une bordure supplémentaire pour renforcer la distinction visuelle */
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Améliorer la lisibilité des textes sur les fonds colorés */
+.allergene-badge,
+.badge,
+.countdown,
+.person-countdown,
+.member-badge {
+    /* Assurer une taille de police minimale pour la lisibilité */
+    font-size: max(0.75rem, 12px);
+    /* Améliorer l'espacement des lettres pour la lisibilité */
+    letter-spacing: 0.01em;
+}
+
+/* ===== UTILITY CLASSES =====
+ * Classes utilitaires diverses
+ */
+
+/* Indique qu'une action est en cours */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Alignement de texte */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Marges */
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+/* Typographie */
+.text-bold { font-weight: var(--font-weight-bold); }
+.text-semibold { font-weight: var(--font-weight-semibold); }
+.text-light { font-weight: var(--font-weight-light); }
+
+.text-small { font-size: 0.85rem; }
+.text-large { font-size: 1.25rem; }
+
+/* Couleurs */
+.text-primary { color: var(--color-active); }
+.text-secondary { color: var(--color-button-alt); }
+.text-success { color: var(--color-success); }
+.text-danger { color: var(--color-error); }
+.text-warning { color: var(--color-warning); }
+
+/* Flexbox utilitaire */
+.d-flex { display: flex; }
+.flex-column { flex-direction: column; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-1 { gap: var(--spacing-xs); }
+.gap-2 { gap: var(--spacing-sm); }
+.gap-3 { gap: var(--spacing-md); }

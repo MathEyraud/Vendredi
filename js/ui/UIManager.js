@@ -96,8 +96,7 @@ class UIManager {
     /**
      * Met à jour l'affichage du responsable actuel
      * @param {RotationInfo} rotation - Informations sur le responsable actuel
-     */
-    updateCurrentRotation(rotation) {
+     */updateCurrentRotation(rotation) {
         if (!rotation || !rotation.member) return;
         
         // Met à jour le nom du responsable
@@ -112,12 +111,16 @@ class UIManager {
         
         // Met à jour le compte à rebours
         if (this.countdownElement) {
+            // Réinitialiser les classes
+            this.countdownElement.classList.remove('today');
+            
             if (rotation.isToday) {
-                this.countdownElement.textContent = "C'est aujourd'hui !";
+                this.countdownElement.innerHTML = `<span>C'est aujourd'hui !</span>`;
+                this.countdownElement.classList.add('today');
             } else if (rotation.daysRemaining === 1) {
-                this.countdownElement.textContent = "C'est demain !";
+                this.countdownElement.innerHTML = `<span>C'est demain !</span>`;
             } else {
-                this.countdownElement.textContent = `Dans ${rotation.daysRemaining} jours`;
+                this.countdownElement.innerHTML = `<span>Dans ${rotation.daysRemaining} jours</span>`;
             }
         }
     }

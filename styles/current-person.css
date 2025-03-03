@@ -1,0 +1,92 @@
+/*------------------------------------------------------
+ * current-person.css
+ * 
+ * Contient les styles pour la section du responsable
+ * de la semaine en cours (celui qui apporte les croissants)
+ *------------------------------------------------------*/
+
+/* ===== CURRENT WEEK COMPONENT =====
+ * Styles pour la section du responsable de la semaine actuelle
+ */
+ .current-week {
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+/* Titre de la section */
+.current-week-title {
+    font-size: 1.25rem;
+    color: var(--color-interactive); /* Meilleur contraste */
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-regular);
+}
+
+/* Nom de la personne responsable - même couleur que la date */
+.current-person {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-active); /* Couleur spécifiée pour le light mode #164194 */
+    margin-bottom: var(--spacing-sm);
+    transition: color 0.3s ease;
+}
+
+/* Date du responsable - même couleur que le nom */
+.current-date {
+    font-size: 1.1rem;
+    color: var(--color-active); /* Couleur spécifiée pour le light mode #164194 */
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ===== COUNTDOWN BADGE =====
+ * Style pour le badge de décompte des jours
+ */
+.countdown {
+    background-color: var(--color-bg-2);
+    color: var(--color-bg-1);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-semibold);
+    
+    /* Conserver l'alignement avec l'icône */
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    
+    /* Assurer une taille minimale et le centrage */
+    min-width: 110px;
+    justify-content: center;
+    
+    /* Animation au survol */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Style spécial pour "C'est aujourd'hui !" */
+.countdown.today {
+    background-color: var(--color-dynamic);
+    color: white;
+}
+
+/* Ajustement de la taille de l'icône */
+.countdown i {
+    font-size: 1rem;
+}
+
+/* Animation de pulsation pour les badges "aujourd'hui" */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Appliquer l'animation au badge "aujourd'hui" */
+.countdown.today {
+    animation: pulse 2s infinite;
+}

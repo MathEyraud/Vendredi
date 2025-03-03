@@ -1,0 +1,88 @@
+/*------------------------------------------------------
+ * team-members.css
+ * 
+ * Contient les styles pour la grille des membres de l'équipe
+ * et les cartes individuelles des membres
+ *------------------------------------------------------*/
+
+/* ===== TEAM LIST COMPONENT =====
+ * Styles pour la grille des membres de l'équipe
+ */
+ .team-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Carte individuelle de membre */
+.team-member {
+    background-color: rgba(14, 44, 73, 0.08); /* Très léger, bon contraste */
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: all var(--transition-speed) var(--transition-timing);
+}
+
+/* Animation au survol de la carte */
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-notify-1-light);
+}
+
+/* Avatar du membre avec initiales */
+.member-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-button);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-sm);
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-bg-1); /* Contraste avec l'arrière-plan */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Nom du membre */
+.member-name {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-interactive); /* Meilleur contraste */
+    transition: color 0.3s ease;
+}
+
+/* Poste/titre du membre */
+.member-position {
+    font-size: 0.85rem;
+    color: var(--color-interactive); /* Meilleur contraste */
+    opacity: 0.8;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ===== MEMBER BADGES =====
+ * Styles pour les badges des membres (Courant, Prochain, etc.)
+ */
+.member-badge {
+    background-color: var(--color-notify-1);
+    color: white; /* Contraste optimal */
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    display: block;
+}
+
+/* Badge pour le membre responsable cette semaine */
+.member-badge.current {
+    background-color: var(--color-dynamic);
+}
+
+/* Badge pour les dates de rotation */
+.member-badge.date {
+    background-color: var(--color-bluish-grey);
+    margin-top: var(--spacing-sm);
+    font-size: 0.7rem;
+    display: block;
+}

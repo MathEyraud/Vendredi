@@ -1,0 +1,139 @@
+/*------------------------------------------------------
+ * alerts.css
+ * 
+ * Contient les styles pour les alertes et notifications,
+ * notamment la section des allergènes
+ *------------------------------------------------------*/
+
+/* ===== ALLERGENES COMPONENT =====
+ * Styles pour la section des allergènes
+ */
+ .allergenes-container {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px dashed var(--card-border);
+    transition: border-color 0.3s ease;
+}
+
+/* Titre des allergènes */
+.allergenes-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-error);
+}
+
+/* Icône d'avertissement */
+.allergenes-title i {
+    font-size: 1.2rem;
+}
+
+/* Liste flexible des badges d'allergènes */
+.allergenes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Badge individuel d'allergène */
+.allergene-badge {
+    background-color: var(--color-error);
+    color: white; /* Contraste optimal */
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+}
+
+/* Liste des personnes avec allergènes */
+.allergenes-persons {
+    margin-top: var(--spacing-md);
+    font-size: 0.9rem;
+    color: var(--color-interactive); /* Meilleur contraste */
+    opacity: 0.9;
+}
+
+/* Élément individuel personne avec allergènes */
+.allergene-person {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Nom de la personne avec allergènes */
+.allergene-person span {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-interactive); /* Meilleur contraste */
+    transition: color 0.3s ease;
+}
+
+/* ===== ALERT BOXES =====
+ * Styles pour les boîtes d'alerte et messages
+ */
+
+/* Boîte d'avertissement pour les allergènes */
+.allergene-warning {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background-color: var(--color-error-light);
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    color: var(--color-error); /* Rouge foncé sur fond rose très pâle */
+}
+
+/* Message de succès (pas d'allergènes) */
+.allergene-success {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background-color: var(--color-success-light);
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    color: var(--color-success); /* Vert foncé sur fond vert très pâle */
+}
+
+/* ===== GENERIC ALERT STYLES =====
+ * Styles génériques pour autres alertes
+ */
+.alert {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.alert i {
+    font-size: 1.1rem;
+    margin-top: 2px;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+.alert-title {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Variantes d'alertes */
+.alert-warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.alert-error {
+    background-color: var(--color-error-light);
+    color: var(--color-error);
+}
+
+.alert-success {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.alert-info {
+    background-color: var(--color-notify-1-light);
+    color: var(--color-notify-1);
+}

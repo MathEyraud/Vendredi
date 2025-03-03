@@ -34,6 +34,13 @@ class ThemeManager {
          */
         this._themeToggle = null;
         
+        /**
+         * Élément DOM du label de thème
+         * @type {HTMLElement|null}
+         * @private
+         */
+        this._themeLabel = null;
+        
         // Initialise le gestionnaire de thème
         this._initialize();
     }
@@ -112,9 +119,15 @@ class ThemeManager {
         textLabel.className = 'theme-switch-label';
         textLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
         
+        // Ajoute une icône pour le mode
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'theme-icon';
+        iconSpan.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        
         // Assemblage de l'interrupteur
         switchLabel.appendChild(switchInput);
         switchLabel.appendChild(slider);
+        wrapper.appendChild(iconSpan);
         wrapper.appendChild(switchLabel);
         wrapper.appendChild(textLabel);
         
@@ -126,6 +139,7 @@ class ThemeManager {
             // Stocke une référence à l'interrupteur et au label
             this._themeToggle = switchInput;
             this._themeLabel = textLabel;
+            this._themeIcon = iconSpan;
             
             // Ajoute l'écouteur d'événement pour le changement de thème
             this._themeToggle.addEventListener('change', () => this._handleThemeToggle());
@@ -144,9 +158,13 @@ class ThemeManager {
         // Met à jour l'état du mode sombre
         this._isDarkMode = this._themeToggle.checked;
         
-        // Met à jour le label
+        // Met à jour le label et l'icône
         if (this._themeLabel) {
             this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
+        }
+        
+        if (this._themeIcon) {
+            this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         }
         
         // Applique le thème
@@ -185,6 +203,7 @@ class ThemeManager {
                 this._isDarkMode = true;
                 if (this._themeToggle) this._themeToggle.checked = true;
                 if (this._themeLabel) this._themeLabel.textContent = 'Mode sombre';
+                if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
                 this._applyTheme();
                 this._saveThemePreference();
             }
@@ -196,6 +215,7 @@ class ThemeManager {
                     this._isDarkMode = e.matches;
                     if (this._themeToggle) this._themeToggle.checked = this._isDarkMode;
                     if (this._themeLabel) this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
+                    if (this._themeIcon) this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
                     this._applyTheme();
                 }
             });
@@ -210,6 +230,7 @@ class ThemeManager {
             this._isDarkMode = true;
             if (this._themeToggle) this._themeToggle.checked = true;
             if (this._themeLabel) this._themeLabel.textContent = 'Mode sombre';
+            if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
             this._applyTheme();
             this._saveThemePreference();
         }
@@ -223,6 +244,7 @@ class ThemeManager {
             this._isDarkMode = false;
             if (this._themeToggle) this._themeToggle.checked = false;
             if (this._themeLabel) this._themeLabel.textContent = 'Mode clair';
+            if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-sun"></i>';
             this._applyTheme();
             this._saveThemePreference();
         }
@@ -235,6 +257,7 @@ class ThemeManager {
         this._isDarkMode = !this._isDarkMode;
         if (this._themeToggle) this._themeToggle.checked = this._isDarkMode;
         if (this._themeLabel) this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
+        if (this._themeIcon) this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         this._applyTheme();
         this._saveThemePreference();
     }

@@ -1,0 +1,77 @@
+/*------------------------------------------------------
+ * forms.css
+ * 
+ * Contient les styles pour les éléments de formulaire
+ * et les contrôles d'entrée comme le sélecteur de service
+ *------------------------------------------------------*/
+
+/* ===== SERVICE SELECTOR =====
+ * Styles pour le sélecteur d'équipe dans l'en-tête
+ */
+ .service-selector {
+    background-color: rgba(255, 255, 255, 0.2); /* Meilleur contraste */
+    border: 2px solid var(--color-inactive);
+    color: var(--color-bg-1); /* Blanc pour un contraste optimal sur fond bleu */
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-speed) var(--transition-timing);
+    min-width: 180px;
+}
+
+/* États interactifs du sélecteur */
+.service-selector:focus, 
+.service-selector:hover {
+    border-color: var(--color-button);
+    background-color: rgba(255, 255, 255, 0.3); /* Augmente le contraste au survol */
+}
+
+/* Style des options du sélecteur */
+.service-selector option {
+    background-color: var(--bg-light);
+    color: var(--color-blue-bg); /* Assure la lisibilité dans le menu déroulant */
+}
+
+/* ===== FORM ELEMENTS =====
+ * Styles génériques pour d'autres éléments de formulaire
+ * (à étendre selon les besoins futurs)
+ */
+
+/* Style de base pour les champs de saisie */
+.input-field {
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: var(--color-button-alt);
+    box-shadow: 0 0 0 2px rgba(43, 187, 212, 0.25);
+    outline: none;
+}
+
+/* Style pour les étiquettes de formulaire */
+.form-label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-interactive);
+}
+
+/* Style pour les groupes de formulaire */
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+/* Style pour les messages d'erreur de formulaire */
+.form-error {
+    color: var(--color-error);
+    font-size: 0.85rem;
+    margin-top: var(--spacing-xs);
+}
