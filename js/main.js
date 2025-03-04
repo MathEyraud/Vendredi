@@ -6,6 +6,9 @@
 // Initialise l'application lorsque le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Ajoute le logo croissant
+        addCroissantLogo();
+
         // Vérifie si l'élément des allergènes existe
         const allergenesContainer = document.getElementById('allergenesContainer');
         if (allergenesContainer) {
@@ -39,3 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+/**
+ * Ajoute un logo de croissant à côté du nom Vendredi dans le header
+ */
+function addCroissantLogo() {
+    const logoElement = document.querySelector('.logo');
+    if (logoElement) {
+        // Créer un élément span pour l'emoji croissant
+        const croissantEmoji = document.createElement('span');
+        croissantEmoji.className = 'logo-croissant';
+        croissantEmoji.textContent = '🥐';  // Emoji croissant
+        
+        // Ajouter l'emoji après le texte du logo
+        logoElement.prepend(croissantEmoji);
+        console.log("Logo croissant ajouté au header");
+        
+    } else {
+        console.error("L'élément logo n'existe pas dans le DOM");
+    }
+}

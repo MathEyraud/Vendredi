@@ -41,12 +41,12 @@
 /* ===== COUNTDOWN BADGE =====
  * Style pour le badge de décompte des jours
  */
-.countdown {
+ .countdown {
     background-color: var(--color-bg-2);
     color: var(--color-bg-1);
     border-radius: var(--border-radius-xl);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: 0.85rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1.1rem;
     font-weight: var(--font-weight-semibold);
     
     /* Conserver l'alignement avec l'icône */
@@ -55,11 +55,17 @@
     gap: var(--spacing-sm);
     
     /* Assurer une taille minimale et le centrage */
-    min-width: 110px;
+    min-width: 150px;
     justify-content: center;
     
     /* Animation au survol */
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Style spécifique pour le texte à l'intérieur du badge */
+.countdown span {
+    font-size: 1.4rem;
+    font-weight: var(--font-weight-bold);
 }
 
 /* Style spécial pour "C'est aujourd'hui !" */
@@ -70,7 +76,7 @@
 
 /* Ajustement de la taille de l'icône */
 .countdown i {
-    font-size: 1rem;
+    font-size: 1.4rem;
 }
 
 /* Animation de pulsation pour les badges "aujourd'hui" */

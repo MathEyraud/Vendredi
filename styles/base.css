@@ -56,6 +56,15 @@ header {
     font-size: 1.8rem;
 }
 
+/* Logo croissant à côté du nom */
+.logo-croissant {
+    margin-right: var(--spacing-sm);
+    font-size: 1.5rem;
+    transform: rotate(20deg); /* Légère rotation pour un effet dynamique */
+    display: inline-block;
+    animation: float 3s ease-in-out infinite; /* Animation de flottement */
+}
+
 /* Corps principal */
 main {
     padding: var(--spacing-xl) 0;
@@ -108,4 +117,17 @@ h3 {
 p {
     line-height: 1.6;
     margin-bottom: var(--spacing-md);
+}
+
+/* Animation de flottement pour le croissant */
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(20deg);
+    }
+    50% {
+        transform: translateY(-3px) rotate(20deg);
+    }
+    100% {
+        transform: translateY(0) rotate(20deg);
+    }
 }

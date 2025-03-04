@@ -39,7 +39,7 @@ class RotationModel {
         const currentDate = new Date();
         
         // Calcul des semaines écoulées depuis la date de départ
-        const weeksPassed = DateUtils.getWeeksBetween(startDate, currentDate);
+        const weeksPassed = DateUtils.getWeeksBetween(startDate, currentDate)+1;
         
         // Calcul de l'index actuel en tenant compte de la rotation
         return weeksPassed % members.length;

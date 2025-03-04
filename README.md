@@ -46,7 +46,7 @@ A lightweight web application to manage weekly breakfast rotations within differ
 git clone https://github.com/MathEyraud/Vendredi.git
 ```
 
-2. Open `index.html` in your web browser
+2. Open `Vendredi.html` in your web browser
    - No server required!
    - Works directly from a shared folder
 
@@ -56,32 +56,48 @@ git clone https://github.com/MathEyraud/Vendredi.git
 
 ```
 /Vendredi/
-├── index.html                      # Main HTML entry point
-├── styles/                         # CSS styles folder
-│   ├── variables.css               # CSS variables (including dark mode)
-│   ├── base.css                    # Base styles
-│   ├── components.css              # Component styles
-│   └── responsive.css              # Responsive adaptations
-└── js/                             # JavaScript folder
-    ├── config.js                   # App configuration
-    ├── main.js                     # JavaScript entry point
-    ├── data/teams/                 # Team data files
-    │   ├── team_dev.js             # Development team
-    │   ├── team_marketing.js       # Marketing team
-    │   ├── team_design.js          # Design team
-    │   └── team_finance.js         # Finance team
-    ├── utils/                      # Utility functions
-    │   └── DateUtils.js            # Date manipulation utilities
+├── Vendredi.html                      # Point d'entrée HTML principal
+├── README.md                       # Documentation du projet
+├── styles/                         # Dossier des styles CSS
+│   ├── variables.css               # Variables CSS globales (couleurs, espacements, etc.)
+│   ├── base.css                    # Styles de base (reset, structure générale)
+│   ├── components.css              # Styles des composants d'interface
+│   ├── responsive.css              # Adaptations responsive pour différentes tailles d'écran
+│   ├── layout.css                  # Structure de mise en page
+│   ├── alerts.css                  # Styles pour les alertes et notifications
+│   ├── tables.css                  # Styles pour les tableaux
+│   ├── current-person.css          # Styles pour la section du responsable courant
+│   ├── person-lists.css            # Styles pour les listes de personnes
+│   ├── team-members.css            # Styles pour les membres d'équipe
+│   ├── buttons-badges.css          # Styles pour les boutons et badges
+│   ├── forms.css                   # Styles pour les éléments de formulaire
+│   ├── dark-mode.css               # Adaptations pour le mode sombre
+│   ├── theme-switcher.css          # Styles pour le sélecteur de thème
+│   └── utilities.css               # Classes utilitaires
+└── js/                             # Dossier JavaScript
+    ├── config.js                   # Configuration et données des équipes
+    ├── main.js                     # Point d'entrée JavaScript
+    ├── data/                       # Données de l'application
+    │   └── teams/                  # Fichiers des équipes
+    │       ├── team_dev.js         # Équipe développement
+    │       ├── team_marketing.js   # Équipe marketing
+    │       ├── team_design.js      # Équipe design
+    │       ├── team_finance.js     # Équipe finance
+    │       ├── team_oifp.js        # Équipe OIFP (nouveau)
+    │       └── team_exemple.js     # Équipe exemple (nouveau)
+    ├── utils/                      # Utilitaires
+    │   └── DateUtils.js            # Fonctions de manipulation des dates
     ├── services/                   # Services
-    │   └── StorageService.js       # Local storage management
-    ├── models/                     # Data models
-    │   ├── TeamModel.js            # Team data management
-    │   └── RotationModel.js        # Rotation logic
-    ├── ui/                         # User interface components
-    │   ├── UIManager.js            # UI display management
-    │   └── ThemeManager.js         # Dark/light theme management
-    └── controllers/                # Application controllers
-        └── AppController.js        # Main application controller
+    │   └── StorageService.js       # Gestion du stockage localStorage
+    ├── models/                     # Modèles (gestion des données)
+    │   ├── TeamModel.js            # Modèle des équipes
+    │   ├── RotationModel.js        # Modèle de rotation des responsables
+    │   └── RankingModel.js         # Modèle de classement (en développement)
+    ├── ui/                         # Interface utilisateur
+    │   ├── UIManager.js            # Gestionnaire d'interface
+    │   └── ThemeManager.js         # Gestionnaire du thème clair/sombre
+    └── controllers/                # Contrôleurs
+        └── AppController.js        # Contrôleur principal de l'application
 ```
 
 ## 🔄 Adding a New Team
@@ -128,7 +144,7 @@ const TEAM_[UPPERCASE_ID] = {
 };
 ```
 
-3. **Reference the file** in `index.html`:
+3. **Reference the file** in `Vendredi.html`:
 
 ```html
 <script src="./js/data/teams/team_[id].js"></script>

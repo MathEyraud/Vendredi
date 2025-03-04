@@ -96,7 +96,8 @@ class UIManager {
     /**
      * Met à jour l'affichage du responsable actuel
      * @param {RotationInfo} rotation - Informations sur le responsable actuel
-     */updateCurrentRotation(rotation) {
+     */
+    updateCurrentRotation(rotation) {
         if (!rotation || !rotation.member) return;
         
         // Met à jour le nom du responsable
@@ -115,12 +116,12 @@ class UIManager {
             this.countdownElement.classList.remove('today');
             
             if (rotation.isToday) {
-                this.countdownElement.innerHTML = `<span>C'est aujourd'hui !</span>`;
+                this.countdownElement.innerHTML = `<i class="fas fa-clock"></i><span>C'est aujourd'hui !</span>`;
                 this.countdownElement.classList.add('today');
             } else if (rotation.daysRemaining === 1) {
-                this.countdownElement.innerHTML = `<span>C'est demain !</span>`;
+                this.countdownElement.innerHTML = `<i class="fas fa-clock"></i><span>C'est demain !</span>`;
             } else {
-                this.countdownElement.innerHTML = `<span>Dans ${rotation.daysRemaining} jours</span>`;
+                this.countdownElement.innerHTML = `<i class="fas fa-clock"></i><span>Dans ${rotation.daysRemaining} jours</span>`;
             }
         }
     }
@@ -228,12 +229,15 @@ class UIManager {
             this.teamListElement.appendChild(div);
         }
     }    
+    
     /**
      * Met à jour l'affichage de l'historique
      * @param {Array<RotationInfo>} pastRotations - Liste des tours précédents
      * @param {string} serviceName - Nom du service
      */
     updateHistory(pastRotations, serviceName) {
+        
+        // Si le tableau d'historique n'existe pas, on ne peut rien faire
         if (!this.historyTableBodyElement) return;
         
         // Vide le tableau

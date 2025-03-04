@@ -24,7 +24,7 @@ const APP_CONFIG = {
      * Équipe par défaut à afficher au chargement
      * @type {string}
      */
-    EQUIPE_PAR_DEFAUT: 'dev',
+    EQUIPE_PAR_DEFAUT: 'oifp',
     
     /**
      * Nombre d'entrées à afficher dans l'historique
@@ -36,7 +36,7 @@ const APP_CONFIG = {
      * Liste des identifiants d'équipes disponibles
      * @type {Array}
      */
-    TEAM_IDS: ['dev', 'marketing', 'design', 'finance'],
+    TEAM_IDS: ['dev', 'marketing', 'design', 'finance', 'oifp', 'exemple'],
 
     /**
      * Nombre d'anniversaires à afficher
@@ -58,10 +58,12 @@ function loadTeams() {
         if (typeof TEAM_MARKETING !== 'undefined') teams.marketing = TEAM_MARKETING;
         if (typeof TEAM_DESIGN !== 'undefined') teams.design = TEAM_DESIGN;
         if (typeof TEAM_FINANCE !== 'undefined') teams.finance = TEAM_FINANCE;
+        if (typeof TEAM_OIFP !== 'undefined') teams.oifp = TEAM_OIFP;
+        if (typeof TEAM_EXEMPLE !== 'undefined') teams.exemple = TEAM_EXEMPLE;
         
         // Vérifier si des équipes ont été chargées
         if (Object.keys(teams).length === 0) {
-            console.error("Aucune équipe n'a pu être chargée. Vérifiez que les fichiers d'équipe sont correctement inclus dans index.html");
+            console.error("Aucune équipe n'a pu être chargée. Vérifiez que les fichiers d'équipe sont correctement inclus dans Vendredi.html");
         }
     } catch (e) {
         console.error("Erreur lors du chargement des équipes:", e);
