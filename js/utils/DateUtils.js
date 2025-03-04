@@ -177,4 +177,48 @@ const DateUtils = {
             month: 'long'
         });
     },
+
+    /**
+     * Calcule les jours restants jusqu'à la prochaine occurrence d'une fête de prénom
+     * @param {string} nameDay - Date de la fête du prénom au format "MM-DD"
+     * @returns {number} Nombre de jours jusqu'à la prochaine fête
+     */
+    getNextNameDayDays(nameDay) {
+        if (!nameDay) return null;
+        
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        
+        // Extraction du mois et du jour
+        const [month, day] = nameDay.split('-').map(num => parseInt(num, 10));
+        
+        // Date de la fête cette année
+        let nameDayThisYear = new Date(currentYear, month - 1, day);
+        
+        // Si la fête est déjà passée cette année, on calcule pour l'année prochaine
+        if (nameDayThisYear < today) {
+            nameDayThisYear = new Date(currentYear + 1, month - 1, day);
+        }
+        
+        return this.getDaysBetween(today, nameDayThisYear);
+    },
+
+    /**
+     * Formate une date de fête de prénom pour l'affichage
+     * @param {string} nameDay - Date de la fête au format "MM-DD"
+     * @returns {string} Date formatée (ex: "15 avril")
+     */
+    formatNameDay(nameDay) {
+        if (!nameDay) return '';
+        
+        const [month, day] = nameDay.split('-').map(num => parseInt(num, 10));
+        
+        // Création d'une date temporaire pour le formatage
+        const tempDate = new Date(2000, month - 1, day);
+        
+        return tempDate.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long'
+        });
+    }
 };

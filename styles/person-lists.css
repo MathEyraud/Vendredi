@@ -117,3 +117,37 @@
     font-style: italic;
     text-align: center;
 }
+
+/* ===== NAMEDAY STYLES =====
+ * Styles spécifiques pour les fêtes des prénoms
+ */
+
+/* Style spécial pour la fête du prénom du jour */
+.person-item.nameday-today .person-avatar {
+    background-color: var(--color-electric-blue);
+    color: white; /* Contraste maximal */
+}
+
+.person-item.nameday-today .person-countdown {
+    background-color: var(--color-electric-blue);
+    color: white; /* Contraste maximal */
+    font-weight: var(--font-weight-bold);
+}
+
+/* Icône calendrier pour les fêtes des prénoms */
+.card-header .fa-calendar-day {
+    color: var(--color-bg-1); /* Contraste avec fond bleu du header */
+}
+
+/* Animation pour les fêtes des prénoms du jour */
+.nameday-today .person-avatar,
+.nameday-today .person-countdown {
+    animation: pulse 2s infinite;
+}
+
+/* Style spécifique pour la liste des fêtes des prénoms */
+#nameDaysList.scrollable-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+}

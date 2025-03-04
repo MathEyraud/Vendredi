@@ -43,6 +43,12 @@ const APP_CONFIG = {
      * @type {number}
      */
     NOMBRE_ANNIVERSAIRES: 15,
+    
+    /**
+     * Nombre de fêtes des prénoms à afficher
+     * @type {number}
+     */
+    NOMBRE_FETES_PRENOMS: 15,
 };
 
 /**

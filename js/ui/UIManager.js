@@ -25,6 +25,10 @@ class UIManager {
         this.birthdaysListElement = document.getElementById('birthdaysList');
         this.noBirthdaysElement = document.getElementById('noBirthdays');
         
+        // Nouveaux éléments pour les fêtes des prénoms
+        this.nameDaysListElement = document.getElementById('nameDaysList');
+        this.noNameDaysElement = document.getElementById('noNameDays');
+        
         // Vérifie que tous les éléments nécessaires sont présents
         this._checkElements();
     }
@@ -418,6 +422,66 @@ class UIManager {
             this.birthdaysListElement.classList.add('scrollable-list');
         } else {
             this.birthdaysListElement.classList.remove('scrollable-list');
+        }
+    }
+
+    /**
+     * Met à jour l'affichage des fêtes des prénoms
+     * @param {Array} nameDays - Liste des prochaines fêtes des prénoms
+     */
+    updateNameDays(nameDays) {
+        if (!this.nameDaysListElement || !this.noNameDaysElement) {
+            console.error("Éléments pour les fêtes des prénoms non trouvés dans le DOM");
+            return;
+        }
+        
+        // Vide la liste
+        this.nameDaysListElement.innerHTML = '';
+        
+        // Affiche un message si aucune fête n'est définie
+        if (!nameDays || nameDays.length === 0) {
+            this.nameDaysListElement.style.display = 'none';
+            this.noNameDaysElement.style.display = 'block';
+            return;
+        }
+        
+        // Sinon, affiche la liste des fêtes
+        this.nameDaysListElement.style.display = 'block';
+        this.noNameDaysElement.style.display = 'none';
+        
+        // Ajoute une entrée pour chaque fête
+        for (const nameDay of nameDays) {
+            const li = document.createElement('li');
+            li.className = 'person-item';
+            
+            // Détermine le texte du décompte
+            let countdownText;
+            if (nameDay.daysRemaining === 0) {
+                countdownText = "C'est aujourd'hui !";
+                li.classList.add('nameday-today'); // Ajoute une classe spéciale pour aujourd'hui
+            } else if (nameDay.daysRemaining === 1) {
+                countdownText = "C'est demain !";
+            } else {
+                countdownText = `Dans ${nameDay.daysRemaining} jours`;
+            }
+            
+            li.innerHTML = `
+                <div class="person-avatar">${nameDay.member.initials || '??'}</div>
+                <div class="person-info">
+                    <div class="person-name">${nameDay.member.name || 'Non défini'}</div>
+                    <div class="person-date">${nameDay.formattedDate}</div>
+                </div>
+                <div class="person-countdown">${countdownText}</div>
+            `;
+            
+            this.nameDaysListElement.appendChild(li);
+        }
+        
+        // Si la liste est très longue, ajouter une classe pour la rendre scrollable
+        if (nameDays.length > 5) {
+            this.nameDaysListElement.classList.add('scrollable-list');
+        } else {
+            this.nameDaysListElement.classList.remove('scrollable-list');
         }
     }
 }

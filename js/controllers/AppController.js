@@ -67,6 +67,9 @@ class AppController {
         // Récupération des anniversaires
         const upcomingBirthdays = this.teamModel.getUpcomingBirthdays();
         
+        // Récupération des fêtes des prénoms
+        const upcomingNameDays = this.teamModel.getUpcomingNameDays();
+        
         // Récupération des allergènes
         const allergenes = this.teamModel.getCurrentAllergenes();
         const membersWithAllergenes = this.teamModel.getMembersWithAllergenes();
@@ -82,6 +85,7 @@ class AppController {
         this.uiManager.updateHistory(pastRotations, serviceName);
         this.uiManager.updateAllergenes(allergenes, membersWithAllergenes);
         this.uiManager.updateBirthdays(upcomingBirthdays);
+        this.uiManager.updateNameDays(upcomingNameDays);
     }
     
     /**

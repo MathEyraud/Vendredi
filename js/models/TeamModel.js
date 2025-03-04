@@ -327,4 +327,37 @@ class TeamModel {
         // Retourner le nombre demandé d'anniversaires
         return birthdaysWithDays.slice(0, count);
     }
+
+    /**
+     * Récupère les prochaines fêtes des prénoms de l'équipe actuelle
+     * @param {number} count - Nombre de fêtes à récupérer
+     * @returns {Array} Liste des prochaines fêtes des prénoms
+     */
+    getUpcomingNameDays(count = APP_CONFIG.NOMBRE_FETES_PRENOMS) {
+        const members = this.getCurrentMembers();
+        
+        // Filtrer les membres qui ont une date de fête de prénom
+        const membersWithNameDay = members.filter(member => 
+            member.nameDay && member.nameDay.trim() !== '');
+        
+        if (membersWithNameDay.length === 0) {
+            return [];
+        }
+        
+        // Calculer les jours restants pour chaque fête
+        const nameDaysWithDays = membersWithNameDay.map(member => {
+            const daysRemaining = DateUtils.getNextNameDayDays(member.nameDay);
+            return {
+                member,
+                daysRemaining,
+                formattedDate: DateUtils.formatNameDay(member.nameDay)
+            };
+        });
+        
+        // Trier par proximité (du plus proche au plus éloigné)
+        nameDaysWithDays.sort((a, b) => a.daysRemaining - b.daysRemaining);
+        
+        // Retourner le nombre demandé de fêtes
+        return nameDaysWithDays.slice(0, count);
+    }
 }
