@@ -13,17 +13,18 @@ class UIManager {
      * @constructor
      */
     constructor() {
-        // Éléments du DOM
-        this.serviceSelectorElement = document.getElementById('serviceSelector');
-        this.currentPersonElement = document.getElementById('currentPerson');
-        this.currentDateElement = document.getElementById('currentDate');
-        this.countdownElement = document.getElementById('countdown');
-        this.nextPersonsListElement = document.getElementById('nextPersonsList');
-        this.teamListElement = document.getElementById('teamList');
-        this.historyTableBodyElement = document.getElementById('historyTableBody');
-        this.allergenesContainerElement = document.getElementById('allergenesContainer');
-        this.birthdaysListElement = document.getElementById('birthdaysList');
-        this.noBirthdaysElement = document.getElementById('noBirthdays');
+        // Élements du DOM
+        this.serviceSelectorElement = document.getElementById('serviceSelector');        // Dropdown de sélection d'équipe dans le header
+        this.currentPersonElement = document.getElementById('currentPerson');            // Nom du responsable actuel des croissants
+        this.currentDateElement = document.getElementById('currentDate');                // Date du prochain vendredi
+        this.countdownElement = document.getElementById('countdown');                    // Décompte des jours jusqu'au prochain vendredi
+        this.nextPersonsListElement = document.getElementById('nextPersonsList');        // Liste des prochaines personnes en rotation
+        this.teamListElement = document.getElementById('teamList');                      // Grille des membres de l'équipe
+        this.historyTableBodyElement = document.getElementById('historyTableBody');      // Tableau d'historique des rotations passées
+        this.allergenesContainerElement = document.getElementById('allergenesContainer'); // Conteneur pour les alertes d'allergènes
+        this.birthdaysListElement = document.getElementById('birthdaysList');            // Liste des prochains anniversaires
+        this.noBirthdaysElement = document.getElementById('noBirthdays');                // Message affiché quand aucun anniversaire n'est défini
+        this.teamMemberCountElement = document.getElementById('teamMemberCount');        // Badge affichant le nombre de membres dans l'équipe
         
         // Nouveaux éléments pour les fêtes des prénoms
         this.nameDaysListElement = document.getElementById('nameDaysList');
@@ -199,6 +200,11 @@ class UIManager {
         
         // Vérifie que members est un tableau
         if (!Array.isArray(members)) return;
+
+        // Met à jour le compteur de membres
+        if (this.teamMemberCountElement) {
+            this.teamMemberCountElement.textContent = members.length;
+        }
         
         // Index du membre actuel
         const currentIndex = members.findIndex(m => m && currentMember && m.id === currentMember.id);

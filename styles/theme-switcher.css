@@ -11,9 +11,8 @@
  .theme-switch-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: var(--spacing-lg);
-    color: var(--color-bg-1); /* Bon contraste sur fond footer */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+    margin: 0;
 }
 
 /* Conteneur du switch */
@@ -65,17 +64,10 @@ input:checked + .slider:before {
     transform: translateX(20px);
 }
 
-/* Label à côté du switch */
-.theme-switch-label {
-    margin-left: var(--spacing-sm);
-    font-size: 0.9rem;
-    color: var(--color-bg-1); /* Bon contraste sur fond footer */
-}
-
 /* Style pour l'icône du thème */
 .theme-icon {
-    margin-right: var(--spacing-sm);
-    font-size: 1rem;
+    margin-left: var(--spacing-sm);
+    font-size: 1.2rem;
     color: var(--color-bg-1);
 }
 
@@ -92,4 +84,28 @@ body {
 .theme-switch:hover {
     transform: scale(1.05);
     transition: transform 0.2s ease;
+}
+
+/* Structure flexible du footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    flex: 1;
+}
+
+.footer-center {
+    flex: 2;
+    text-align: center;
+    margin: 0;
+}
+
+.footer-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: var(--spacing-md);
 }

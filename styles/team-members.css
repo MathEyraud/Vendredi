@@ -86,3 +86,12 @@
     font-size: 0.7rem;
     display: block;
 }
+
+/* Badge spécifique pour le compteur de membres */
+.badge-member-count {
+    font-size: 1rem !important;                 /* Taille de police plus grande */
+    padding: 0.3em 0.6em;                       /* Plus de padding pour agrandir le badge */
+    margin-left: var(--spacing-sm);             /* Espacement par rapport au texte */
+    vertical-align: middle;                     /* Alignement vertical */
+    font-weight: var(--font-weight-semibold);
+}

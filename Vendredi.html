@@ -105,7 +105,7 @@
             <!-- Membres de l'équipe -->
             <div class="card">
                 <div class="card-header">
-                    <span><i class="fas fa-users"></i>&nbsp;&nbsp;Membres de l'équipe</span>
+                    <span><i class="fas fa-users"></i>&nbsp;&nbsp;Membres de l'équipe <span id="teamMemberCount" class="badge badge-primary badge-member-count"></span></span>
                 </div>
                 <div class="card-body">
                     <div id="teamList" class="team-list">
@@ -142,9 +142,12 @@
     
     <!-- Pied de page -->
     <footer>
-        <div class="container">
-            <p>Vendredi - Application de gestion des croissants &copy; 2025 - Eyraud Mathieu</p>
-            <!-- Le ThemeManager va insérer le switch du mode sombre ici -->
+        <div class="container footer-container">
+            <div class="footer-left"></div>
+            <p class="footer-center">Vendredi - Application de gestion des croissants &copy; 2025 - Eyraud Mathieu</p>
+            <div id="themeToggleContainer" class="footer-right">
+                <!-- Le ThemeManager va insérer le switch du mode sombre ici -->
+            </div>
         </div>
     </footer>
     

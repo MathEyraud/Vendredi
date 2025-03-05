@@ -34,13 +34,6 @@ class ThemeManager {
          */
         this._themeToggle = null;
         
-        /**
-         * Élément DOM du label de thème
-         * @type {HTMLElement|null}
-         * @private
-         */
-        this._themeLabel = null;
-        
         // Initialise le gestionnaire de thème
         this._initialize();
     }
@@ -100,6 +93,10 @@ class ThemeManager {
         const wrapper = document.createElement('div');
         wrapper.className = 'theme-switch-wrapper';
         
+        // Crée le label de texte (maintenant en premier)
+        const textLabel = document.createElement('span');
+        textLabel.className = 'theme-switch-label';
+        
         // Crée l'interrupteur
         const switchLabel = document.createElement('label');
         switchLabel.className = 'theme-switch';
@@ -114,40 +111,36 @@ class ThemeManager {
         const slider = document.createElement('span');
         slider.className = 'slider';
         
-        // Crée le label de texte
-        const textLabel = document.createElement('span');
-        textLabel.className = 'theme-switch-label';
-        textLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
-        
         // Ajoute une icône pour le mode
         const iconSpan = document.createElement('span');
         iconSpan.className = 'theme-icon';
         iconSpan.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         
-        // Assemblage de l'interrupteur
+        // Assemblage de l'interrupteur (nouvel ordre)
         switchLabel.appendChild(switchInput);
         switchLabel.appendChild(slider);
-        wrapper.appendChild(iconSpan);
-        wrapper.appendChild(switchLabel);
-        wrapper.appendChild(textLabel);
         
-        // Ajoute l'interrupteur au footer
-        const footer = document.querySelector('footer .container');
-        if (footer) {
-            footer.appendChild(wrapper);
+        // Nouvel ordre des éléments
+        wrapper.appendChild(textLabel);    // Texte en premier (à gauche)
+        wrapper.appendChild(switchLabel);  // Toggle au milieu
+        wrapper.appendChild(iconSpan);     // Icône en dernier (à droite)
+        
+        // Ajoute l'interrupteur au conteneur dédié dans le footer
+        const themeContainer = document.getElementById('themeToggleContainer');
+        if (themeContainer) {
+            themeContainer.appendChild(wrapper);
             
             // Stocke une référence à l'interrupteur et au label
             this._themeToggle = switchInput;
-            this._themeLabel = textLabel;
             this._themeIcon = iconSpan;
             
             // Ajoute l'écouteur d'événement pour le changement de thème
             this._themeToggle.addEventListener('change', () => this._handleThemeToggle());
         } else {
-            console.error("Élément footer .container non trouvé dans le DOM");
+            console.error("Élément 'themeToggleContainer' non trouvé dans le DOM");
         }
-    }
-    
+    }    
+
     /**
      * Gère le basculement du thème
      * @private
@@ -159,9 +152,6 @@ class ThemeManager {
         this._isDarkMode = this._themeToggle.checked;
         
         // Met à jour le label et l'icône
-        if (this._themeLabel) {
-            this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
-        }
         
         if (this._themeIcon) {
             this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
@@ -202,7 +192,6 @@ class ThemeManager {
             if (savedPreference === null && prefersDarkScheme.matches) {
                 this._isDarkMode = true;
                 if (this._themeToggle) this._themeToggle.checked = true;
-                if (this._themeLabel) this._themeLabel.textContent = 'Mode sombre';
                 if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
                 this._applyTheme();
                 this._saveThemePreference();
@@ -214,7 +203,6 @@ class ThemeManager {
                 if (localStorage.getItem(this._storageKey) === null) {
                     this._isDarkMode = e.matches;
                     if (this._themeToggle) this._themeToggle.checked = this._isDarkMode;
-                    if (this._themeLabel) this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
                     if (this._themeIcon) this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
                     this._applyTheme();
                 }
@@ -229,7 +217,6 @@ class ThemeManager {
         if (!this._isDarkMode) {
             this._isDarkMode = true;
             if (this._themeToggle) this._themeToggle.checked = true;
-            if (this._themeLabel) this._themeLabel.textContent = 'Mode sombre';
             if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
             this._applyTheme();
             this._saveThemePreference();
@@ -243,7 +230,6 @@ class ThemeManager {
         if (this._isDarkMode) {
             this._isDarkMode = false;
             if (this._themeToggle) this._themeToggle.checked = false;
-            if (this._themeLabel) this._themeLabel.textContent = 'Mode clair';
             if (this._themeIcon) this._themeIcon.innerHTML = '<i class="fas fa-sun"></i>';
             this._applyTheme();
             this._saveThemePreference();
@@ -256,7 +242,6 @@ class ThemeManager {
     toggleDarkMode() {
         this._isDarkMode = !this._isDarkMode;
         if (this._themeToggle) this._themeToggle.checked = this._isDarkMode;
-        if (this._themeLabel) this._themeLabel.textContent = this._isDarkMode ? 'Mode sombre' : 'Mode clair';
         if (this._themeIcon) this._themeIcon.innerHTML = this._isDarkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         this._applyTheme();
         this._saveThemePreference();

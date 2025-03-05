@@ -10,7 +10,7 @@ const TEAM_OIFP = {
     id: "oifp",
     name: "Équipe OIFP",
     members: [
-        { id: 1, name: "Mathieu Eyraud", position: "Développeur Logiciel", initials: "EM", allergenes: [], birthdate: "01-23" },
+        { id: 1, name: "Mathieu Eyraud", position: "Développeur Logiciel", initials: "EM", allergenes: [], birthdate: "01-23", nameDay: "12-06"},
     ],
     currentIndex: 0,
     startDate: new Date('2025-02-07')
