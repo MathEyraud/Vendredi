@@ -55,6 +55,10 @@
         width: 100%;
         text-align: center;
     }
+
+    .history-container {
+        max-height: 300px; /* Hauteur réduite sur mobile */
+    }
     
     /* Tables responsives pour mobile */
     .history-table thead {

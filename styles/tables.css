@@ -8,9 +8,27 @@
 /* ===== HISTORY TABLE COMPONENT =====
  * Styles pour le tableau d'historique des rotations
  */
- .history-table {
+
+/* Conteneur avec défilement pour l'historique */
+.history-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--card-border);
+}
+
+.history-table {
     width: 100%;
     border-collapse: collapse;
+}
+
+/* En-tête fixe pour la table d'historique */
+.history-table thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-blue-bg);
+    z-index: 1;
 }
 
 /* Styles communs pour les cellules et en-têtes */
@@ -36,6 +54,21 @@
 .history-table td {
     color: var(--color-interactive); /* Contraste amélioré */
     transition: color 0.3s ease;
+}
+
+/* Personnalisation de la barre de défilement de l'historique (même style que .scrollable-list) */
+.history-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-container::-webkit-scrollbar-track {
+    background: var(--color-inactive);
+    border-radius: 3px;
+}
+
+.history-container::-webkit-scrollbar-thumb {
+    background: var(--color-button-alt);
+    border-radius: 3px;
 }
 
 /* ===== TABLE RESPONSIVE =====

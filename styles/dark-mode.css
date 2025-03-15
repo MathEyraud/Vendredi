@@ -125,6 +125,11 @@
     background: rgba(255, 255, 255, 0.1); /* Plus visible en mode sombre */
 }
 
+/* Mode sombre pour la scroll bar de l'historique */
+.dark-mode .history-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Plus visible en mode sombre */
+}
+
 /* ===== DARK MODE - FÊTES DES PRÉNOMS =====
  * Adaptations pour la section des fêtes des prénoms en mode sombre
  */

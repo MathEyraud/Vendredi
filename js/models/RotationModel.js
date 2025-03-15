@@ -144,47 +144,69 @@ class RotationModel {
     }
     
     /**
-     * Génère l'historique des tours précédents
-     * @param {number} [count=5] - Nombre d'entrées à générer
-     * @returns {Array<RotationInfo>} Liste des tours précédents
+     * Génère l'historique des tours précédents depuis la date de démarrage
+     * @returns {Array<RotationInfo>} Liste complète des tours précédents
      */
-    getPastRotations(count = APP_CONFIG.NOMBRE_HISTORIQUE) {
+    getPastRotations() {
         // S'assurer que l'index courant est à jour
         this.updateCurrentIndex();
         
         const members = this._teamModel.getCurrentMembers();
         const currentIndex = this._teamModel.getCurrentIndex();
-        const startDate = this._teamModel.getStartDate();
+        const startDate = new Date(this._teamModel.getStartDate()); // Créer une nouvelle référence de date
         const result = [];
         
         // Date de référence (vendredi de la semaine actuelle)
         const currentFriday = DateUtils.getCurrentFriday();
         
-        console.log(`Génération des ${count} rotations passées`);
+        console.log(`Génération de l'historique complet depuis ${startDate.toDateString()}`);
         
-        // Génère les tours précédents
-        for (let i = 1; i <= count; i++) {
-            // Calcule la date du tour précédent
-            const pastDate = DateUtils.getFridayDate(currentFriday, -i);
-            
-            // Vérifie si la date est postérieure à la date de démarrage
-            if (pastDate >= startDate) {
-                // Calcule l'index du responsable précédent
-                const pastIndex = (currentIndex - i + members.length) % members.length;
-                const pastMember = members[pastIndex];
-                
-                result.push({
-                    date: pastDate,
-                    member: pastMember,
-                    daysRemaining: 0, // Déjà passé
-                    isToday: false
-                });
-            } else {
-                // Si la date est antérieure à la date de démarrage, on arrête
-                break;
-            }
+        // Approche alternative : génération des vendredis depuis la date de départ
+        // Trouver le premier vendredi à partir de la date de démarrage
+        let firstFriday = new Date(startDate);
+        // Si la date de démarrage n'est pas un vendredi, trouver le premier vendredi suivant
+        if (firstFriday.getDay() !== APP_CONFIG.JOUR_CROISSANTS) {
+            const daysToAdd = (APP_CONFIG.JOUR_CROISSANTS - firstFriday.getDay() + 7) % 7;
+            firstFriday.setDate(firstFriday.getDate() + daysToAdd);
         }
         
-        return result;
+        // Liste de tous les vendredis depuis le premier vendredi jusqu'au vendredi actuel
+        const allFridays = [];
+        let tempFriday = new Date(firstFriday);
+        
+        while (tempFriday <= currentFriday) {
+            allFridays.push(new Date(tempFriday)); // Ajouter une copie de la date
+            tempFriday.setDate(tempFriday.getDate() + 7); // Avancer d'une semaine
+        }
+        
+        // On enlève le vendredi courant car il n'est pas dans l'historique
+        if (allFridays.length > 0 && 
+            DateUtils.isDateSame(allFridays[allFridays.length - 1], currentFriday)) {
+            allFridays.pop();
+        }
+        
+        // Parcourir tous les vendredis passés à partir du plus récent
+        for (let i = allFridays.length - 1; i >= 0; i--) {
+            const pastFriday = allFridays[i];
+            
+            // Calculer l'index de la personne pour ce vendredi
+            // Nombre de semaines depuis le premier vendredi
+            const weeksFromStart = Math.floor(DateUtils.getDaysBetween(firstFriday, pastFriday) / 7);
+            // Index de départ (initialIndex serait 0 ou la valeur définie au démarrage)
+            const initialIndex = 0; // Ou une autre valeur selon votre logique initiale
+            const pastIndex = (initialIndex + weeksFromStart) % members.length;
+            
+            const pastMember = members[pastIndex];
+            
+            result.push({
+                date: pastFriday,
+                member: pastMember,
+                daysRemaining: 0, // Déjà passé
+                isToday: false
+            });
+        }
+        
+        // Inverser le résultat pour avoir les dates plus récentes en premier
+        return result.sort();
     }
 }

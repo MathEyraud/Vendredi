@@ -241,5 +241,17 @@ const DateUtils = {
             day: 'numeric',
             month: 'long'
         });
+    },
+
+    /**
+     * Vérifie si deux dates correspondent au même jour
+     * @param {Date} date1 - Première date
+     * @param {Date} date2 - Deuxième date
+     * @returns {boolean} true si les dates sont le même jour
+     */
+    isDateSame(date1, date2) {
+        return date1.getDate() === date2.getDate() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getFullYear() === date2.getFullYear();
     }
 };
