@@ -293,10 +293,6 @@ class UIManager {
         if (!allergenes || !Array.isArray(allergenes) || allergenes.length === 0) {
             // Afficher un message indiquant qu'aucun allergène n'est présent
             this.allergenesContainerElement.innerHTML = `
-                <div class="allergenes-title">
-                    <i class="fas fa-check-circle"></i>
-                    Aucun allergène à prendre en compte
-                </div>
                 <div class="allergene-success">
                     <i class="fas fa-info-circle"></i>
                     Bonne nouvelle ! Aucun membre de cette équipe n'a d'allergènes déclarés.
