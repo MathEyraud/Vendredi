@@ -10,11 +10,11 @@
 const DateUtils = {
     /**
      * Obtient la date du prochain jour spécifique
-     * @param {Date} [baseDate=new Date()] - Date de référence
+     * @param {Date} [baseDate=DateService.getCurrentDate()] - Date de référence
      * @param {number} targetDay - Jour de la semaine cible (0=dimanche, 6=samedi)
      * @returns {Date} Date du prochain jour spécifique
      */
-    getNextDay(baseDate = new Date(), targetDay) {
+    getNextDay(baseDate = DateService.getCurrentDate(), targetDay) {
         const date = new Date(baseDate);
         const currentDay = date.getDay();
         
@@ -32,19 +32,19 @@ const DateUtils = {
     
     /**
      * Obtient la date du prochain vendredi
-     * @param {Date} [baseDate=new Date()] - Date de référence
+     * @param {Date} [baseDate=DateService.getCurrentDate()] - Date de référence
      * @returns {Date} Date du prochain vendredi
      */
-    getNextFriday(baseDate = new Date()) {
+    getNextFriday(baseDate = DateService.getCurrentDate()) {
         return this.getNextDay(baseDate, APP_CONFIG.JOUR_CROISSANTS);
     },
     
     /**
      * Obtient la date du vendredi de la semaine en cours
-     * @param {Date} [baseDate=new Date()] - Date de référence
+     * @param {Date} [baseDate=DateService.getCurrentDate()] - Date de référence
      * @returns {Date} Date du vendredi de cette semaine
      */
-    getCurrentFriday(baseDate = new Date()) {
+    getCurrentFriday(baseDate = DateService.getCurrentDate()) {
         const date = new Date(baseDate);
         const currentDay = date.getDay();
         
@@ -84,7 +84,7 @@ const DateUtils = {
      * @returns {number} Nombre de jours restants
      */
     getDaysUntil(targetDate) {
-        return this.getDaysBetween(new Date(), targetDate);
+        return this.getDaysBetween(DateService.getCurrentDate(), targetDate);
     },
     
     /**
@@ -128,7 +128,7 @@ const DateUtils = {
      * @returns {boolean} true si la date est aujourd'hui
      */
     isToday(date) {
-        const today = new Date();
+        const today = DateService.getCurrentDate();
         return date.getDate() === today.getDate() &&
                date.getMonth() === today.getMonth() &&
                date.getFullYear() === today.getFullYear();
@@ -142,7 +142,7 @@ const DateUtils = {
     getNextBirthdayDays(birthdate) {
         if (!birthdate) return null;
         
-        const today = new Date();
+        const today = DateService.getCurrentDate();
         const currentYear = today.getFullYear();
         
         // Extraction du mois et du jour
@@ -156,7 +156,23 @@ const DateUtils = {
             birthdayThisYear = new Date(currentYear + 1, month - 1, day);
         }
         
+        // Si c'est aujourd'hui, on retourne 0
+        if (this.isDateToday(month - 1, day)) {
+            return 0;
+        }
+        
         return this.getDaysBetween(today, birthdayThisYear);
+    },
+
+    /**
+     * Vérifie si une date (mois, jour) correspond à aujourd'hui
+     * @param {number} month - Mois (0-11)
+     * @param {number} day - Jour du mois
+     * @returns {boolean} true si la date correspond à aujourd'hui
+     */
+    isDateToday(month, day) {
+        const today = DateService.getCurrentDate();
+        return today.getMonth() === month && today.getDate() === day;
     },
 
     /**
@@ -186,7 +202,7 @@ const DateUtils = {
     getNextNameDayDays(nameDay) {
         if (!nameDay) return null;
         
-        const today = new Date();
+        const today = DateService.getCurrentDate();
         const currentYear = today.getFullYear();
         
         // Extraction du mois et du jour
@@ -198,6 +214,11 @@ const DateUtils = {
         // Si la fête est déjà passée cette année, on calcule pour l'année prochaine
         if (nameDayThisYear < today) {
             nameDayThisYear = new Date(currentYear + 1, month - 1, day);
+        }
+        
+        // Si c'est aujourd'hui, on retourne 0
+        if (this.isDateToday(month - 1, day)) {
+            return 0;
         }
         
         return this.getDaysBetween(today, nameDayThisYear);

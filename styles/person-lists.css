@@ -124,12 +124,12 @@
 
 /* Style spécial pour la fête du prénom du jour */
 .person-item.nameday-today .person-avatar {
-    background-color: var(--color-electric-blue);
+    background-color: var(--color-dynamic);
     color: white; /* Contraste maximal */
 }
 
 .person-item.nameday-today .person-countdown {
-    background-color: var(--color-electric-blue);
+    background-color: var(--color-dynamic);
     color: white; /* Contraste maximal */
     font-weight: var(--font-weight-bold);
 }

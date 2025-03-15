@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const app = new AppController();
         app.init();
         
+        // Expose le contrôleur dans une variable globale pour permettre l'actualisation depuis le mode test
+        window.appController = app;
+        
+        // Initialise le panneau de test
+        new TestPanel();
+        
     } catch (error) {
         // Affiche les erreurs dans la console
         console.error("Erreur lors de l'initialisation de l'application :", error);

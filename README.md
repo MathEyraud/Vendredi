@@ -38,6 +38,12 @@ A lightweight web application to manage weekly breakfast rotations within differ
   - LocalStorage for lightweight persistence
   - No server required
   - Modular architecture for easy maintenance
+  
+- **Test Mode**
+  - Simulate any date to test rotation logic
+  - Secret keyboard shortcut to access test panel
+  - Save test settings between sessions
+  - Date manipulation tools for quick testing
 
 ## 🚀 Getting Started
 
@@ -56,7 +62,7 @@ git clone https://github.com/MathEyraud/Vendredi.git
 
 ```
 /Vendredi/
-├── Vendredi.html                      # Point d'entrée HTML principal
+├── Vendredi.html                   # Point d'entrée HTML principal
 ├── README.md                       # Documentation du projet
 ├── styles/                         # Dossier des styles CSS
 │   ├── variables.css               # Variables CSS globales (couleurs, espacements, etc.)
@@ -83,19 +89,20 @@ git clone https://github.com/MathEyraud/Vendredi.git
     │       ├── team_marketing.js   # Équipe marketing
     │       ├── team_design.js      # Équipe design
     │       ├── team_finance.js     # Équipe finance
-    │       ├── team_oifp.js        # Équipe OIFP (nouveau)
-    │       └── team_exemple.js     # Équipe exemple (nouveau)
+    │       └── team_exemple.js     # Équipe exemple
     ├── utils/                      # Utilitaires
     │   └── DateUtils.js            # Fonctions de manipulation des dates
     ├── services/                   # Services
-    │   └── StorageService.js       # Gestion du stockage localStorage
+    │   ├── StorageService.js       # Gestion du stockage localStorage
+    │   └── DateService.js          # Service de gestion des dates et mode test
     ├── models/                     # Modèles (gestion des données)
     │   ├── TeamModel.js            # Modèle des équipes
     │   ├── RotationModel.js        # Modèle de rotation des responsables
     │   └── RankingModel.js         # Modèle de classement (en développement)
     ├── ui/                         # Interface utilisateur
     │   ├── UIManager.js            # Gestionnaire d'interface
-    │   └── ThemeManager.js         # Gestionnaire du thème clair/sombre
+    │   ├── ThemeManager.js         # Gestionnaire du thème clair/sombre
+    │   └── TestPanel.js            # Panneau de contrôle du mode test
     └── controllers/                # Contrôleurs
         └── AppController.js        # Contrôleur principal de l'application
 ```
@@ -164,6 +171,35 @@ if (typeof TEAM_[UPPERCASE_ID] !== 'undefined') teams.[id] = TEAM_[UPPERCASE_ID]
 - **Birthdays**: Add birthdates (optional) to celebrate team members
 - **Colors**: Edit variables in `styles/variables.css`
 - **Layout**: Adjust styling in component CSS files
+
+## 🧪 Test Mode
+
+To help with testing different scenarios without waiting for specific dates, "Vendredi" includes a date simulation mode.
+
+### How to Access Test Mode
+
+1. Type the secret code `2301` anywhere in the application (just type the letters, don't press Enter)
+2. A test panel will appear in the bottom right corner of the screen
+
+### Test Panel Features
+
+- **Date Simulation**: Select any date to see how the application would behave on that day
+- **Quick Date Adjustments**: Add or subtract days/weeks with one click
+- **Status Display**: Clear indication when test mode is active
+- **Persistent Settings**: Test mode settings are saved between sessions
+
+### Use Cases
+
+- Test how the application behaves on a Friday
+- Verify birthday displays without waiting for actual birthdays
+- Test rotation changes across weeks
+- Validate date-dependent features
+
+### Technical Details
+
+- Test mode is isolated from regular application logic
+- All date calculations use the simulated date when test mode is active
+- The application's core functionality works exactly as it would on the simulated date
 
 ## 🔒 Privacy & Requirements
 

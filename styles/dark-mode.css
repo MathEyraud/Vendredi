@@ -129,7 +129,7 @@
  * Adaptations pour la section des fêtes des prénoms en mode sombre
  */
  .dark-mode .person-item.nameday-today .person-countdown {
-    background-color: var(--color-electric-blue);
+    background-color: var(--color-dynamic);
     color: white;
     /* Ajouter une ombre pour améliorer le contraste */
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);

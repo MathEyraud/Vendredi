@@ -36,12 +36,27 @@ class RotationModel {
     calculateCurrentIndex() {
         const startDate = this._teamModel.getStartDate();
         const members = this._teamModel.getCurrentMembers();
-        const currentDate = new Date();
+        const currentDate = DateService.getCurrentDate();
         
-        // Calcul des semaines écoulées depuis la date de départ
-        const weeksPassed = DateUtils.getWeeksBetween(startDate, currentDate)+1;
+        // Obtenir le vendredi actuel (celui de la semaine en cours)
+        const currentFriday = DateUtils.getCurrentFriday();
         
-        // Calcul de l'index actuel en tenant compte de la rotation
+        // Le vendredi actuel appartient à la semaine en cours si nous sommes vendredi ou avant,
+        // sinon il appartient à la semaine suivante
+        const isBeforeOrOnFriday = currentDate.getDay() <= APP_CONFIG.JOUR_CROISSANTS;
+        
+        // Si nous sommes vendredi ou avant, utiliser le vendredi actuel
+        // Si nous sommes après vendredi, utiliser le vendredi précédent
+        const referenceDate = isBeforeOrOnFriday 
+            ? currentFriday 
+            : new Date(currentFriday.getTime() - 7 * 24 * 60 * 60 * 1000); // Vendredi de la semaine précédente
+        
+        // Calculer le nombre de semaines écoulées depuis la date de départ jusqu'à la date de référence
+        const weeksPassed = Math.floor(DateUtils.getDaysBetween(startDate, referenceDate) / 7);
+        
+        console.log(`Calcul de l'index: date actuelle=${currentDate.toDateString()}, vendredi actuel=${currentFriday.toDateString()}, date de référence=${referenceDate.toDateString()}, semaines écoulées=${weeksPassed}`);
+        
+        // Calculer l'index en fonction du nombre de semaines écoulées
         return weeksPassed % members.length;
     }
     
@@ -51,6 +66,7 @@ class RotationModel {
      */
     updateCurrentIndex() {
         const newIndex = this.calculateCurrentIndex();
+        console.log(`Mise à jour de l'index: nouvel index calculé = ${newIndex}`);
         return this._teamModel.setCurrentIndex(newIndex);
     }
     
@@ -71,11 +87,16 @@ class RotationModel {
         // Calcule les jours restants
         const daysRemaining = DateUtils.getDaysUntil(currentFriday);
         
+        // Vérification si c'est aujourd'hui
+        const isToday = DateUtils.isToday(currentFriday);
+        
+        console.log(`Rotation actuelle: ${currentMember?.name} pour le ${currentFriday.toDateString()}, jours restants: ${daysRemaining}, est aujourd'hui: ${isToday}`);
+        
         return {
             date: currentFriday,
             member: currentMember,
             daysRemaining: daysRemaining,
-            isToday: DateUtils.isToday(currentFriday)
+            isToday: isToday
         };
     }
     
@@ -96,6 +117,8 @@ class RotationModel {
         
         // Nombre de rotations à afficher = nombre de membres - 1 (car le membre actuel est déjà affiché séparément)
         const count = members.length - 1;
+        
+        console.log(`Génération des ${count} prochaines rotations à partir de l'index ${currentIndex}`);
         
         // Génère les prochains tours pour chaque membre restant de l'équipe
         for (let i = 1; i <= count; i++) {
@@ -126,6 +149,9 @@ class RotationModel {
      * @returns {Array<RotationInfo>} Liste des tours précédents
      */
     getPastRotations(count = APP_CONFIG.NOMBRE_HISTORIQUE) {
+        // S'assurer que l'index courant est à jour
+        this.updateCurrentIndex();
+        
         const members = this._teamModel.getCurrentMembers();
         const currentIndex = this._teamModel.getCurrentIndex();
         const startDate = this._teamModel.getStartDate();
@@ -133,6 +159,8 @@ class RotationModel {
         
         // Date de référence (vendredi de la semaine actuelle)
         const currentFriday = DateUtils.getCurrentFriday();
+        
+        console.log(`Génération des ${count} rotations passées`);
         
         // Génère les tours précédents
         for (let i = 1; i <= count; i++) {

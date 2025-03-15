@@ -53,8 +53,14 @@ class AppController {
     
     /**
      * Met à jour l'affichage
+     * @param {boolean} [forceRotationRecalculation=true] - Force le recalcul de la rotation
      */
-    updateDisplay() {
+    updateDisplay(forceRotationRecalculation = true) {
+        // Si forceRotationRecalculation est true, force le recalcul de l'index actuel
+        if (forceRotationRecalculation) {
+            this.rotationModel.updateCurrentIndex();
+        }
+        
         // Récupère les informations nécessaires
         const services = this.teamModel.getAllServices();
         const currentServiceId = this.teamModel.getCurrentServiceId();
@@ -96,7 +102,7 @@ class AppController {
         this.rotationModel.updateCurrentIndex();
         
         // Met à jour l'affichage
-        this.updateDisplay();
+        this.updateDisplay(false); // Pas besoin de recalculer car on vient de le faire
         
         // Vérifie si les allergènes sont correctement chargés
         const allergenes = this.teamModel.getCurrentAllergenes();
